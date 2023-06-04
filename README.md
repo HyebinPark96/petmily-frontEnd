@@ -1,70 +1,41 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# 📌 React + Spring Boot 게시판 구현  
+## 🔨 개발환경
+* Java Version 8, Gradle / Spring Boot Version 2.6.7 / React Version 17.0.2
+* 사용 라이브러리
+  * 테이블 : `material-table 1.69.3`
+  * 차트 : `amchart4 4.10.22` 
+  * 탭 : `material-ui/core 4.12.3`
+## ✅ 기능
+  * 탭 메뉴 구현
+    * 1번 탭 게시판, 2번 탭 차트
+  * 글 리스트
+    * 글 번호, 제목, 작성자, 작성 일자
+    * 컬럼별 정렬
+  * [Modal] 글 등록
+    * 입력 항목 : 작성자명, 비밀번호, 제목, 내용
+  * [Modal] 글 수정
+    * 비밀번호 확인 후 수정 Modal Open
+  * [Modal] 글 삭제
+    * 비밀번호 확인 후 삭제 Modal Open
+        * 삭제 전 사용자 최종 확인 Modal 필요
+  * Pagination 구현
+  * 글 등록, 수정 시 첨부 파일 추가 기능
+    * 첨부 파일 존재 시 글 리스트에서 아이콘 표시
+  * 조회수 표시
+  * 게시글 검색 기능
+  * 차트
+    * 컬럼차트 : 일자별 게시글 수
+  * 회원기능
+    * 회원가입
+    * 로그인
+    * sessionStorage로 세션 연동 기능 구현
+## ✅ 피드백
+  * @ControllerAdvice를 이용한 예외처리
+  * 마이바티스 여러 if문보다 choose when문으로 코드 줄이기
+  * 페이징 처리 : 네트워크 preview/response를 참고하여 페이지당 전체 게시글을 불러오는 방식에서 
+                  페이지당 게시글 개수만큼만 들고오기
+  * 무분별한 console.log() 대신 개발자도구를 이용한 디버깅
+  * 컴포넌트 분리 및 props로 state 넘겨주기
+  * state는 상태관리를 위해 필요한 것이므로 일회성 용도는 변수로 관리
+  * 가급적 useRef 지양
+  * 구조분해할당(spread 등) 학습
