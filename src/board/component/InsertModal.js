@@ -1,33 +1,23 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Form } from "react-bootstrap";
 
-function InsertModal({insertModalOpen, setFlag, sessionStorage}) {
-
-    const [showInsertModal, setShowInsertModal] = useState(insertModalOpen);
+function InsertModal({open, sessionStorage, setOpen}) {
 
     const closeModal = () => {
-        setFlag(true);
-        setShowInsertModal(false);
+        setOpen(false);
     }
 
-    // 등록, 수정 시 set할 state 
     const [writer, setWriter] = useState(""); 
     const [subject, setSubject] = useState("");
     const [content, setContent] = useState("");
     const [password, setPassword] = useState("");
-
-    // 첨부파일
     const [file, setFile] = useState();
 
-    
-
-    // 게시글 등록
     const insertPost = () => {
-        // console.log(sessionStorage.getItem("savedUserId"));
         if(password.length !== 4) {
             alert('4자리의 비밀번호만 입력 가능합니다.');
             return false;
@@ -50,65 +40,58 @@ function InsertModal({insertModalOpen, setFlag, sessionStorage}) {
             return false;
         }
         
-            
-            const formData = new FormData(); // FormData 객체 생성
+        const formData = new FormData(); 
 
-            if(file !== undefined) { // 파일 업로드 했을 경우
-                formData.append("originFile", file); // 서버에 파일 저장 위해 파일 자체도 보내주기
+        if(file !== undefined) { // 파일 업로드 했을 경우
+            formData.append("originFile", file); 
 
-                let postForInsert = { 
-                    /* writer: writer, */
-                    writer: sessionStorage.getItem("savedUserId") !== null ? sessionStorage.getItem("savedUserId") : writer,
-                    subject: subject,
-                    content: content,
-                    password: password,
-                    originFile: file.name // DB에 담기위해 파일명 보내주기
-                }
-
-                formData.append("post", new Blob([JSON.stringify(postForInsert)], {type: "application/json"})); 
-            } else { // 파일 업로드 안했을 경우
-                let postForInsert = { 
-                    writer: sessionStorage.getItem("savedUserId") !== null ? sessionStorage.getItem("savedUserId") : writer,
-                    subject: subject,
-                    content: content,
-                    password: password 
-                }
-
-                formData.append("post", new Blob([JSON.stringify(postForInsert)], {type: "application/json"})); 
+            let postForInsert = { 
+                writer: sessionStorage.getItem("savedUserId") !== null ? sessionStorage.getItem("savedUserId") : writer,
+                subject: subject,
+                content: content,
+                password: password,
+                originFile: file.name 
             }
 
-            axios({ // async await 없이도 되는지 확인해보기
-                method: 'post',
-                url: '/board/post',
-                data: formData,
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                } 
-            })
-            .then((response) => {
-                if(response.data === true) {
-                    alert('등록되었습니다.');
-                    closeModal();
-                    setFlag(true);
-                } else {
-                    alert('등록에 실패하였습니다.');
-                }
-            }); 
-        
-    }
+            formData.append("post", new Blob([JSON.stringify(postForInsert)], {type: "application/json"})); 
+        } else { // 파일 업로드 안했을 경우
+            let postForInsert = { 
+                writer: sessionStorage.getItem("savedUserId") !== null ? sessionStorage.getItem("savedUserId") : writer,
+                subject: subject,
+                content: content,
+                password: password 
+            }
 
+            formData.append("post", new Blob([JSON.stringify(postForInsert)], {type: "application/json"})); 
+        }
+
+        axios({ 
+            method: 'post',
+            url: '/board/post',
+            data: formData,
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            } 
+        })
+        .then((response) => {
+            if(response.data === true) {
+                alert('등록되었습니다.');
+                closeModal();
+            } else {
+                alert('등록에 실패하였습니다.');
+            }
+        }); 
+    }
 
     return (
         <div>
-            {/*등록용 모달*/}
-            <Modal show={showInsertModal} onHide={closeModal}> 
+            <Modal show={open} onHide={closeModal}> 
                 <Modal.Header closeButton onClick={closeModal}>
                     <Modal.Title>게시글 등록</Modal.Title>
                 </Modal.Header>
     
                 <Modal.Body>
                     작성자
-
                     {sessionStorage.getItem("savedUserId") !== null &&
                     <Form.Control type="text" value={sessionStorage.getItem("savedUserId")} readOnly />}
                     

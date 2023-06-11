@@ -7,15 +7,10 @@ import { Form } from "react-bootstrap";
 import CheckPwdForUpdateModal from "../user/CheckPwdForUpdateModal";
 import CheckPwdForDeleteModal from "../user/CheckPwdForDeleteModal";
 
-function ReadModal({readModalOpen, no, setFlag}) {
-
-    const [showReadModal, setShowReadModal] = useState(readModalOpen);
+function ReadModal({open, no, setOpen}) {
 
     const [checkPwdForDeleteModalOpen, setCheckPwdForDeleteModalOpen] = useState(false);
-
     const [checkPwdForUpdateModalOpen, setCheckPwdForUpdateModalOpen] = useState(false);
-
-    // DB에서 가져올 단일 게시글 state
     const [post, setPost] = useState({});
 
     useEffect(() => {
@@ -25,16 +20,13 @@ function ReadModal({readModalOpen, no, setFlag}) {
         })
     }, [])
 
-
-    // 모달 끄기 
     function closeModal() {
-        setFlag(true);
-        setShowReadModal(false);
+        setOpen(false);
     } 
 
     return (
         <div>
-            <Modal show={showReadModal} onHide={closeModal} animation={false}>
+            <Modal show={open} onHide={closeModal} animation={false}>
                 <Modal.Header closeButton onClick={closeModal}>
                     <Modal.Title>게시글 읽기</Modal.Title>
                 </Modal.Header>
@@ -89,13 +81,13 @@ function ReadModal({readModalOpen, no, setFlag}) {
                 <Modal.Footer>
                      <Button className="updateBtn" onClick={() =>{
                         setCheckPwdForUpdateModalOpen(true);
-                        setShowReadModal(false);
+                        setOpen(false);
                         }}
                     >수정
                     </Button>
                     <Button className="deleteBtn" onClick={() => {
                         setCheckPwdForDeleteModalOpen(true);
-                        setShowReadModal(false);
+                        setOpen(false);
                         }}
                     >삭제
                     </Button> 
@@ -104,11 +96,17 @@ function ReadModal({readModalOpen, no, setFlag}) {
 
             {/* 게시글 수정을 위한 비밀번호 체크 모달창 */}
             {checkPwdForUpdateModalOpen &&
-            <CheckPwdForUpdateModal checkPwdForUpdateModalOpen={checkPwdForUpdateModalOpen} no={no} setFlag={setFlag} />}
+            <CheckPwdForUpdateModal 
+                checkPwdForUpdateModalOpen={checkPwdForUpdateModalOpen} 
+                no={no} 
+            />}
 
             {/* 게시글 삭제를 위한 비밀번호 체크 모달창 */}
             {checkPwdForDeleteModalOpen &&
-            <CheckPwdForDeleteModal checkPwdForDeleteModalOpen={checkPwdForDeleteModalOpen} no={no} setFlag={setFlag} />}
+            <CheckPwdForDeleteModal 
+                checkPwdForDeleteModalOpen={checkPwdForDeleteModalOpen} 
+                no={no} 
+            />}
         </div>
     );
 }

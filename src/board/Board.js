@@ -59,41 +59,20 @@ const tableIcons = {
 };
 
 const Board = () => {   
-    // 모달창 노출 여부 state
-    const [readModalOpen, setReadModalOpen] = useState(false); // const [modalOpen, setModalOpen] = useState(false)
-    // 모달창 노출
-    const showReadModal = (no) => {
+
+    // 모달 공통 state 및 로직 
+    const [open, setOpen] = useState(false);
+    const [modalName, setModalName] = useState("");
+    const openModal = (modalName) => {
+        setOpen(true);
+        setModalName(modalName);
+    }
+    const openPostRelatedModal = (no, modalName) => {
         setNo(no);
-        setReadModalOpen(!readModalOpen); // false => true 처리
-    };
-
-    const [checkPwdForDeleteModalOpen, setCheckPwdForDeleteModalOpen] = useState(false);
-    const showCheckPwdForDeleteModal = (no) => {
-        setNo(no);
-        setCheckPwdForDeleteModalOpen(!checkPwdForDeleteModalOpen);
+        setOpen(true);
+        setModalName(modalName);
     }
-
-    const [checkPwdForUpdateModalOpen, setCheckPwdForUpdateModalOpen] = useState(false);
-    const showCheckPwdForUpdateModal = (no) => {
-        setNo(no);
-        setCheckPwdForUpdateModalOpen(!checkPwdForUpdateModalOpen);
-    }
-
-    const [insertModalOpen, setInsertModalOpen] = useState(false);
-    const showInsertModal = () => {
-        setInsertModalOpen(!insertModalOpen);
-    }
-
-    const [signUpModalOpen, setSignUpModalOpen] = useState(false);
-    const showSignUpModal = () => {
-        setSignUpModalOpen(!signUpModalOpen);
-    }
-
-    const [signInModalOpen, setSignInModalOpen] = useState(false);
-    const showSignInModal = () => {
-        setSignInModalOpen(!signInModalOpen);
-    }
-
+  
     // 세션의 종류 2가지 (둘 다 저장소의 개념에 불과하다.)
     // 1. localStorage : 사용자가 삭제하지 않는한 정보가 지속되므로 보안에 취약하다.
     // 2. sessionStorage : 브라우저를 닫자마자 저장소가 지워진다. (반휘발성)  
@@ -161,7 +140,6 @@ const Board = () => {
         });
     } 
 
-    // useEffect(함수,배열) : 컴포넌트가 화면에 나타났을(마운트)때 자동 실행.
     useEffect(() => {
         axios({
             url: '/board',
@@ -179,7 +157,7 @@ const Board = () => {
                         writer: rowData.writer,
                         subject: rowData.subject,
                         content: rowData.content,
-                        writeDate: moment(rowData.writeDate).format('YYYY-MM-DD HH:mm:ss'), // 형변환
+                        writeDate: moment(rowData.writeDate).format('YYYY-MM-DD HH:mm:ss'), 
                         password: rowData.password,
                         viewCnt: rowData.viewCnt,
                         saveFileDir: rowData.saveFileDir
@@ -187,37 +165,17 @@ const Board = () => {
                 ))
                 setBoardList(data); 
                 setPostCnt(response.data.postCnt); 
-                
-                // 리렌더링 시 true 상태인 열었던 모달창 state를 false로 초기화 
-                setInsertModalOpen(false);
-                setReadModalOpen(false);
-                setCheckPwdForUpdateModalOpen(false);
-                setCheckPwdForDeleteModalOpen(false);
-                setSignUpModalOpen(false);
-                setSignInModalOpen(false);
-                
-                setFlag(false);
             } else { // 데이터 0개인 경우
                 setBoardList([]); // 빈배열로 초기화
                 setPostCnt(response.data.postCnt); // 0개
-
-                setInsertModalOpen(false);
-                setReadModalOpen(false);
-                setCheckPwdForUpdateModalOpen(false);
-                setCheckPwdForDeleteModalOpen(false);
-                setSignUpModalOpen(false);
-                setSignInModalOpen(false);
-
-                setFlag(false);
             }
         });
-
-    },[flag]) // 해당 state 값 변경 시 리렌더링
+    },[open]) 
 
 
     return (
         <div>
-            <Button className="insertBtn" onClick={showInsertModal}>
+            <Button className="insertBtn" onClick={() => openModal("INSERT")}>
                 등록
             </Button>
 
@@ -226,12 +184,12 @@ const Board = () => {
             </Button> 
             
             {sessionStorage.getItem("savedUserId") === null &&
-            <Button className="signUpBtn" onClick={() => {showSignUpModal()}}>
+            <Button className="signUpBtn" onClick={() => {openModal("SIGNUP")}}>
                 회원가입
              </Button>}
 
              {sessionStorage.getItem("savedUserId") === null &&
-            <Button className="signInBtn" onClick={() => {showSignInModal()}}>
+            <Button className="signInBtn" onClick={() => {openModal("SIGNIN")}}>
                 로그인
             </Button>}
 
@@ -242,66 +200,65 @@ const Board = () => {
                 setSavedUserPwd(sessionStorage.getItem("savedUserPassword"));
             }} className="signOutBtn">로그아웃</Button>}
 
-
-            <Header boardTitle="B O A R D" />
-
+            <Header boardTitle="게시판" />
             
             <div className="boardDiv">
-                <MaterialTable key={boardList.length}
-                title="게시판"
-                icons={tableIcons}
+                <MaterialTable 
+                    key={boardList.length}
+                    // title="게시판"
+                    icons={tableIcons}
 
-                columns={[
-                    { title: '글 번호', field: 'no',
-                        cellStyle: {
-                            width: "120px",
-                            textAlign: 'center'
+                    columns={[
+                        { title: '글 번호', field: 'no',
+                            cellStyle: {
+                                width: "120px",
+                                textAlign: 'center'
+                            },
+                            headerStyle: {
+                                textAlign: 'center'
+                            }
                         },
-                        headerStyle: {
-                            textAlign: 'center'
-                        }
-                    },
-                    { title: '제목', field: 'subject', 
-                        cellStyle: {
-                            width: "150px",
-                            textAlign: 'center'
+                        { title: '제목', field: 'subject', 
+                            cellStyle: {
+                                width: "150px",
+                                textAlign: 'center'
+                            },
+                            headerStyle: {
+                                textAlign: 'center'
+                            }
                         },
-                        headerStyle: {
-                            textAlign: 'center'
-                        }
-                    },
-                    { title: '작성자', field: 'writer',
-                        cellStyle: {
-                            width: "150px",
-                            textAlign: 'center'
+                        { title: '작성자', field: 'writer',
+                            cellStyle: {
+                                width: "150px",
+                                textAlign: 'center'
+                            },
+                            headerStyle: {
+                                textAlign: 'center'
+                            }
                         },
-                        headerStyle: {
-                            textAlign: 'center'
-                        }
-                    },
-                    { title: '작성일자', field: 'writeDate', 
-                        defaultSort: 'desc',
-                        cellStyle: {
-                            width: "200px",
-                            textAlign: 'center'
+                        { title: '작성일자', field: 'writeDate', 
+                            defaultSort: 'desc',
+                            cellStyle: {
+                                width: "200px",
+                                textAlign: 'center'
+                            },
+                            headerStyle: {
+                                textAlign: 'center'
+                            }
                         },
-                        headerStyle: {
-                            textAlign: 'center'
-                        }
-                    },
-                    { title: '조회수', field: 'viewCnt', type: 'numeric',
-                        cellStyle: {
-                            width: "120px",
-                            textAlign: 'center'
+                        { title: '조회수', field: 'viewCnt', type: 'numeric',
+                            cellStyle: {
+                                width: "120px",
+                                textAlign: 'center'
+                            },
+                            headerStyle: {
+                                textAlign: 'center'
+                            }
                         },
-                        headerStyle: {
-                            textAlign: 'center'
-                        }
-                    },
-                ]}
-                
-                data={
-                    boardList
+                    ]}
+                    
+                    data={
+                        boardList
 
 /*                  
                     // 공식문서의 map 안돌리는 방법 // 무한 렌더링 문제생겨서 일단 보류
@@ -345,22 +302,20 @@ const Board = () => {
                     {
                         icon: CheckIcon,
                         tooltip: 'Read Post',
-                        onClick: (event, rowData) => showReadModal(rowData.no)
+                        onClick: (event, rowData) => openPostRelatedModal(rowData.no, "READ")
                     },
                     {
                         icon: DeleteIcon,
                         tooltip: 'Delete Post',
-                        onClick: (event, rowData) => showCheckPwdForDeleteModal(rowData.no)
+                        onClick: (event, rowData) => openPostRelatedModal(rowData.no, "CHECKPWD_DELETE")
                     },
                     {
                         icon: CreateIcon,
                         tooltip: 'Update Post',
-                        onClick: (event, rowData) => showCheckPwdForUpdateModal(rowData.no)
+                        onClick: (event, rowData) => openPostRelatedModal(rowData.no, "CHECKPWD_UPDATE")
                     },
                     rowData => ({
                         icon: PhotoIcon,
-                        /* tooltip: 'have img', */
-                        /* onClick: (event, rowData) => alert(), */
                         disabled: rowData.saveFileDir === null
                     })
                 ]}
@@ -375,15 +330,14 @@ const Board = () => {
             />
             </div><br></br>
 
-            {/* 검색 */}
             <Button className="searchBtn" onClick={() => {
                 if(search_keyword === '') {
                     alert('검색어를 입력해주세요.');
                     return false;
                 }
                 setFlag(true); 
-            }}
-            >검색</Button> 
+            }}>검색</Button> 
+
             <div className="searchDiv">
                 <Form.Select className="search_category" value={search_category}
                     onChange={(e) => {
@@ -393,49 +347,61 @@ const Board = () => {
                     <option value="subject">제목</option>
                     <option value="content">내용</option>
                     <option value="writer">작성자</option>
-                </Form.Select> &nbsp; 
+                </Form.Select>
                 
                 <Form.Control type="text" className="search_keyword" placeholder='검색어를 입력하세요.' value={search_keyword}
                      onChange={(e) => {
                         setsearch_keyword(e.target.value);
                     }} 
                 />
-                
-                &nbsp;
             </div><br></br>
 
-            {/* 
-                아래 모달창들 조건부렌더링
-                - flag 보내주는 이유는 등록, 수정, 삭제 시 부모 컴포넌트인 게시판 리렌더링 되기 위함
-                - no 보내주는 이유는 해당 게시글에 대해 기능을 만들기 위해
-                - ~open 보내주는 이유는 해당 모달창의 open onhide 설정을 위해
-            */}
-
             {/* 게시글 등록 모달창 */}
-            {insertModalOpen && 
-            <InsertModal insertModalOpen={insertModalOpen} setFlag={setFlag} sessionStorage={sessionStorage} />} 
+            {
+                (modalName === "INSERT" && open) 
+                && 
+                <InsertModal open={open} sessionStorage={sessionStorage} setOpen={setOpen} />
+            } 
             
             {/* 게시글 상세 모달창 */}
-            {readModalOpen && 
-            <ReadModal readModalOpen={readModalOpen} no={no} setFlag={setFlag} />}
+            {
+                (modalName === "READ" && open) 
+                && 
+                <ReadModal open={open} no={no} setOpen={setOpen} />
+            }
 
             {/* 게시글 수정을 위한 비밀번호 체크 모달창 */}
-            {checkPwdForUpdateModalOpen && 
-            <CheckPwdForUpdateModal checkPwdForUpdateModalOpen={checkPwdForUpdateModalOpen} no={no} setFlag={setFlag} />}
+            {
+                (modalName === "CHECKPWD_UPDATE" && open) 
+                && 
+                <CheckPwdForUpdateModal no={no} setOpen={setOpen} />
+            }
         
             {/* 게시글 삭제를 위한 비밀번호 체크 모달창 */}
-            {checkPwdForDeleteModalOpen &&
-            <CheckPwdForDeleteModal checkPwdForDeleteModalOpen={checkPwdForDeleteModalOpen} no={no} setFlag={setFlag} />}
+            {
+                (modalName === "CHECKPWD_DELETE" && open) 
+                &&
+                <CheckPwdForDeleteModal open={open} no={no} setOpen={setOpen} />
+            }
         
             {/* 회원가입 모달창 */}
-            {signUpModalOpen &&
-            sessionStorage.getItem("savedUserId") === null &&
-            <SignUpModal signUpModalOpen={signUpModalOpen} setFlag={setFlag} />}
+            {
+                (modalName === "SIGNUP" && open) 
+                &&
+                <SignUpModal open={open} setOpen={setOpen} />
+            }
 
             {/* 로그인 모달창 */}
-            {signInModalOpen &&
-            sessionStorage.getItem("savedUserId") === null &&
-            <SignInModal signInModalOpen={signInModalOpen} setFlag={setFlag} sessionStorage={sessionStorage} setSavedUserId={setSavedUserId} setSavedUserPwd={setSavedUserPwd} />}  
+            {
+                (modalName === "SIGNIN" && sessionStorage.getItem("savedUserId") === null && open)  
+                &&
+                <SignInModal 
+                    sessionStorage={sessionStorage} 
+                    setSavedUserId={setSavedUserId} 
+                    setSavedUserPwd={setSavedUserPwd} 
+                    setOpen={setOpen} 
+                />
+            }  
     
         </div>
     )

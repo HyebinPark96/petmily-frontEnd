@@ -6,12 +6,11 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Form } from "react-bootstrap";
 
-const SignInModal = ({signInModalOpen, setFlag, setSavedUserId, setSavedUserPwd, sessionStorage}) => {
+const SignInModal = ({signInModalOpen, setSavedUserId, setSavedUserPwd, sessionStorage}) => {
 
     const [showSignInModal, setShowSignInModal] = useState(signInModalOpen);
 
     const closeModal = () => {
-        setFlag(true);
         setShowSignInModal(false);
     }
 
@@ -42,7 +41,6 @@ const SignInModal = ({signInModalOpen, setFlag, setSavedUserId, setSavedUserPwd,
                 setSavedUserId(sessionStorage.getItem("savedUserId"));
                 setSavedUserPwd(sessionStorage.getItem("savedUserPassword"));
 
-                setFlag(true)
                 alert('로그인 되었습니다.');
                 closeModal();
             } else {
@@ -56,7 +54,6 @@ const SignInModal = ({signInModalOpen, setFlag, setSavedUserId, setSavedUserPwd,
     
     return (
             <div>
-                {/*로그인용 모달*/}
                 <Modal show={showSignInModal} onHide={closeModal}> 
                     {/* <Header boardTitle="S I G N I N"/> */}
                     <Modal.Header closeButton onClick={closeModal}>

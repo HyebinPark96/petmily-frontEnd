@@ -7,13 +7,10 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Form } from "react-bootstrap";
 
-const SignUpModal = ({signUpModalOpen, setFlag}) => {
-
-    const [showSignUpModal, setShowSignUpModal] = useState(signUpModalOpen);
+const SignUpModal = ({open, setOpen}) => {
 
     const closeModal = () => {
-        setFlag(true);
-        setShowSignUpModal(false);
+        setOpen(false);
     }
 
     // 회원가입시 사용되는 state
@@ -45,7 +42,6 @@ const SignUpModal = ({signUpModalOpen, setFlag}) => {
         })
         .then(response => {
             if(response.data) {
-                setFlag(true)
                 alert('회원가입이 완료되었습니다.');
                 closeModal();
             } else {
@@ -60,8 +56,7 @@ const SignUpModal = ({signUpModalOpen, setFlag}) => {
     return (
             <div>
                 {/*회원가입용 모달*/}
-                <Modal show={showSignUpModal} onHide={closeModal}> 
-                    {/* <Header boardTitle="S I G N U P"/> */}
+                <Modal show={open} onHide={closeModal}> 
                     <Modal.Header closeButton onClick={closeModal}>
                         <Modal.Title>회원가입</Modal.Title>
                     </Modal.Header>

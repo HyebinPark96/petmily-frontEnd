@@ -6,14 +6,12 @@ import { Form } from 'react-bootstrap';
 
 import UpdateModal from '../component/UpdateModal';
 
-const CheckPwdForUpdateModal = ({checkPwdForUpdateModalOpen, no, setFlag}) => {
+const CheckPwdForUpdateModal = ({no, setOpen}) => {
 
-    // 게시글 수정을 위한 비밀번호 체크 모달창 토글 state
-    const [showCheckPwdForUpdateModal, setShowCheckPwdForUpdateModal] = useState(checkPwdForUpdateModalOpen);
+    const [showCheckPwdForUpdate, setShowCheckPwdForUpdate] = useState(true);
 
     const closeModal = () => {
-        setFlag(true); 
-        setShowCheckPwdForUpdateModal(false);
+        setOpen(false);
     }
 
     // 게시글 수정 모달창 토글 state
@@ -22,34 +20,23 @@ const CheckPwdForUpdateModal = ({checkPwdForUpdateModalOpen, no, setFlag}) => {
     // 비밀번호 체크 시 입력한 문자열
     const [inputPwd, setInputPwd] = useState("");
     
-    // DB에서 가져올 단일 게시글 state
-    const [post, setPost] = useState();
-
-    // 비밀번호 체크 시 일치하면 => 수정용 모달 열기
     const handleShowForUpdateModal = () => {
-
         axios.post('/checkPwd', {
-            // pwd 체크위해 해당 no과 입력한 pwd 보내주기 
-            no: no, // 매개변수로 받아온 no
-            password: inputPwd // 입력한 pwd
+            no: no, 
+            password: inputPwd
         })
         .then((response) => {
-            if(response.data !== '') { // 비밀번호 틀리면 컨트롤러에서 null 리턴
-                setPost(response.data); // 수정된 post 담김
-                
-                setShowCheckPwdForUpdateModal(false); // 비밀번호 체크 모달창 닫기
-                setUpdateModalOpen(true); // true 처리하면 조건부 렌더링에서 참이되어 렌더링 
+            if(response.data) {
+                setUpdateModalOpen(true); 
             } else {
                 alert('비밀번호가 일치하지 않습니다.');
             }
         });
     }
 
-
     return (
         <div>
-            {/*게시글 수정을 위한 비밀번호 체크 모달창*/}
-             <Modal show={showCheckPwdForUpdateModal} onHide={closeModal}> 
+             <Modal show={showCheckPwdForUpdate} onHide={closeModal}> 
                 <Modal.Header closeButton onClick={closeModal}>
                     <Modal.Title>게시글 수정을 위한 비밀번호 확인</Modal.Title>
                 </Modal.Header>
@@ -73,8 +60,15 @@ const CheckPwdForUpdateModal = ({checkPwdForUpdateModalOpen, no, setFlag}) => {
                 </Modal.Footer>
             </Modal> 
 
-            {updateModalOpen &&
-            <UpdateModal updateModalOpen={updateModalOpen} post={post} setFlag={setFlag} />}
+            {
+                updateModalOpen
+                &&
+                <UpdateModal 
+                    setShowCheckPwdForUpdate={setShowCheckPwdForUpdate} 
+                    setOpen={setOpen}
+                    no={no}
+                />
+            }
         </div>
     ) 
 }
