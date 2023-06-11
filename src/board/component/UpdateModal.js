@@ -1,28 +1,32 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Form } from "react-bootstrap";
 
-const UpdateModal = ({updateModalOpen, post, setFlag}) => {
-    const [showUpdateModal, setShowUpdateModal] = useState(updateModalOpen);
+const UpdateModal = ({setShowCheckPwdForUpdate, setOpen, no}) => {
 
-    // 모달 끄기 
+    const [showUpdateModal, setShowUpdateModal] = useState(true);
+    const [postInfo, setPostInfo] = useState({});
+
+    const getPostInfo = () => {
+        axios.get('/board/post/' + no)
+        .then((response) => {
+            setPostInfo(response.data);
+        })
+    }
+
+    useEffect(() => {
+        setShowCheckPwdForUpdate(false); // 마운트 되면 비밀번호 체크 모달 닫기 
+        getPostInfo();
+    }, [])
+
     const closeModal = () => {
-        setFlag(true);
-        setShowUpdateModal(false);
+        setOpen(false); // 초기화
     };
 
-    // axios로 보내줄 수정된 post  
-    let update_post = ({});
-    
-    // 첨부파일
     const [file, setFile] = useState();
-    
-    // 등록, 수정 시 set할 state
-    const [subject, setSubject] = useState(post.subject); // 수정 전 post로 초기화
-    const [content, setContent] = useState(post.content); // 수정 전 post로 초기화
 
     // 파일 미리보기 토글
     const [isShowPreviewFile, setIsShowPreviewFile] = useState(true); 
@@ -33,7 +37,7 @@ const UpdateModal = ({updateModalOpen, post, setFlag}) => {
     // 게시글 수정
     const updatePost = () => {
 
-        if(subject !== '' && content !== '') { // 지우고 새로 입력했으나 공백 없는 경우 통과
+        if(postInfo.subject !== '' && postInfo.content !== '') { // 지우고 새로 입력했으나 공백 없는 경우 통과
             const formData = new FormData(); // FormData 객체 생성
 
             if(file !== undefined && file.name !== '') { // 새로운 파일 업로드한 경우
@@ -46,26 +50,22 @@ const UpdateModal = ({updateModalOpen, post, setFlag}) => {
                 
                 formData.append("originFile", file); // 서버에 파일 저장 위해 파일 자체도 보내주기
 
-                update_post = ({
-                    no: post.no,
-                    subject: subject, // 현재 폼에 입력되어있는 subject 
-                    content: content, // 현재 폼에 입력되어있는 content
+                setPostInfo({
+                    ...postInfo,
 
                     // 새 파일 업로드이므로 file만 보내주면 백단에서 나머지 파일 컬럼 값 설정 
                     originFile: file.name 
                 })
 
-                formData.append("post", new Blob([JSON.stringify(update_post)], {type: "application/json"})); 
+                formData.append("post", new Blob([JSON.stringify(postInfo)], {type: "application/json"})); 
 
             } else { // 새로운 파일 업로드하지 않은 경우 
-                console.log(update_post.originFile)
-                if(update_post.originFile === undefined) { // 1. 기존 파일 삭제한 경우 
+                console.log(postInfo.originFile)
+                if(postInfo.originFile === undefined) { // 1. 기존 파일 삭제한 경우 
                     console.log('새로운 파일 업로드 안하고 1. 기존 파일 삭제한 경우 ');
-                    update_post = ({ 
-                        no: post.no,
-                        subject: subject, // 현재 폼에 입력되어있는 subject
-                        content: content, // 현재 폼에 입력되어있는 content
-                        
+                    setPostInfo({ 
+                        ...postInfo,
+
                         // 파일 관련 컬럼은 update 쿼리 실행까지는 되도록 null이라도 보내주기
                         originFile: null,
                         saveFileDir: null,
@@ -73,22 +73,20 @@ const UpdateModal = ({updateModalOpen, post, setFlag}) => {
                     })
                 } else { // 2. 기존 파일 그대로 두고 수정한 경우
                     console.log('새로운 파일 업로드 안하고 2. 기존 파일 그대로 두고 수정한 경우');
-                    update_post = ({
-                        no: post.no,
-                        subject: subject, // 현재 폼에 입력되어있는 subject로 덮어주기
-                        content: content, // 현재 폼에 입력되어있는 content로 덮어주기
+                    setPostInfo({
+                        ...postInfo, 
 
-                        originFile: post.file,
-                        saveFileDir: post.saveFileDir,
-                        saveFileName: post.saveFileName
+                        originFile: postInfo.file,
+                        saveFileDir: postInfo.saveFileDir,
+                        saveFileName: postInfo.saveFileName
                     })
                 }
-                formData.append("post", new Blob([JSON.stringify(update_post)], {type: "application/json"})); 
+                formData.append("post", new Blob([JSON.stringify(postInfo)], {type: "application/json"})); 
             }
 
             axios({
                 method: 'put',
-                url: '/board/post/' + post.no,
+                url: '/board/post/' + no,
                 data: formData,
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -99,7 +97,6 @@ const UpdateModal = ({updateModalOpen, post, setFlag}) => {
                 if(response.data === true) {
                     closeModal();
                     alert('수정되었습니다.');
-                    setFlag(true);
                 } else {
                     alert('수정에 실패하였습니다.');
                 }
@@ -112,7 +109,6 @@ const UpdateModal = ({updateModalOpen, post, setFlag}) => {
 
     return (
         <div>
-        {/*수정용 모달*/}
             <Modal show={showUpdateModal} onHide={closeModal}> 
                 <Modal.Header closeButton onClick={closeModal}>
                     <Modal.Title>게시글 수정</Modal.Title>
@@ -121,17 +117,19 @@ const UpdateModal = ({updateModalOpen, post, setFlag}) => {
                 <Modal.Body>
                     제목
                     <Form.Control type="text" placeholder="제목을 입력해주세요." 
-                        defaultValue={post.subject} autoFocus
+                        defaultValue={postInfo.subject}
+                        value={postInfo.subject} 
                         onChange={(e) => {
-                            setSubject(e.target.value);
+                            setPostInfo({ ...postInfo, subject: e.target.value});
                         }}
+                        autoFocus
                     /><br></br>
                         
                     내용
                     <Form.Control as="textarea" placeholder="내용을 입력해주세요." 
-                        defaultValue={post.content} rows={5}
+                        defaultValue={postInfo.content} rows={5}
                         onChange={(e) => {
-                            setContent(e.target.value);
+                            setPostInfo({ ...postInfo, content: e.target.value});
                         }}
                     /><br></br>
 
@@ -140,13 +138,13 @@ const UpdateModal = ({updateModalOpen, post, setFlag}) => {
                     <br></br>
                     {/* 2. 첨부파일 없는 경우 */}
                     {
-                        post.saveFileDir == null && 
+                        postInfo.saveFileDir == null && 
                         <label>[첨부파일이 없습니다]</label>
                     }
                     
                     {/* 파일 추가하기 버튼 */}
                     {
-                        post.saveFileDir == null && 
+                        postInfo.saveFileDir == null && 
                         <Button className="uploadFileBtn" onClick={() => {
                             setIsShowUpdateFileForm(true);
                         }}>
@@ -156,13 +154,13 @@ const UpdateModal = ({updateModalOpen, post, setFlag}) => {
 
                     {/* 1. 첨부파일 있는 경우 */}
                     {
-                        post.saveFileDir != null && 
+                        postInfo.saveFileDir != null && 
                         isShowPreviewFile &&
-                        <img src={post.saveFileDir} className="uploadFile" alt="파일을 불러오는 데 실패하였습니다."></img>
+                        <img src={postInfo.saveFileDir} className="uploadFile" alt="파일을 불러오는 데 실패하였습니다."></img>
                     }
                     <br></br>
                     {
-                        post.saveFileDir != null && 
+                        postInfo.saveFileDir != null && 
                         <Button className="updateFileBtn" onClick={() => {
                             setIsShowUpdateFileForm(true);    
                         }}>
@@ -173,14 +171,13 @@ const UpdateModal = ({updateModalOpen, post, setFlag}) => {
                     &nbsp;
 
                     {
-                        post.saveFileDir != null
-                        && <Button className="deleteFileBtn" onClick={() => {
+                        postInfo.saveFileDir != null
+                        && 
+                        <Button className="deleteFileBtn" onClick={() => {
                             setIsShowPreviewFile(false); // 파일 미리보기 폼 닫기
 
-                            update_post = ({
-                                writer: post.writer,
-                                subject: subject, // 현재 폼에 입력되어있는 subject
-                                content: content, // 현재 폼에 입력되어있는 content
+                            setPostInfo({
+                                ...postInfo, 
 
                                 // 파일지우기이므로 파일 관련 컬럼은 null로 set 
                                 originFile: null,

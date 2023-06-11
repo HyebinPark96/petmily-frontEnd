@@ -1,19 +1,16 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Form } from 'react-bootstrap';
-
 import DeleteModal from '../component/DeleteModal';
 
-const CheckPwdForDelete = ({checkPwdForDeleteModalOpen, no, setFlag}) => {
+const CheckPwdForDelete = ({no, setOpen}) => {
 
-    // 게시글 삭제를 위한 비밀번호 체크 모달창 토글 state
-    const [showCheckPwdForDeleteModal, setShowCheckPwdForDeleteModal] = useState(checkPwdForDeleteModalOpen);
+    const [showCheckPwdForDelete, setShowCheckPwdForDelete] = useState(true);
 
     const closeModal = () => {
-        setFlag(true);
-        setShowCheckPwdForDeleteModal(false);
+        setOpen(false);
     }
 
     // 게시글 삭제 모달창 토글 state
@@ -22,17 +19,14 @@ const CheckPwdForDelete = ({checkPwdForDeleteModalOpen, no, setFlag}) => {
     // 비밀번호 체크 시 입력한 문자열
     const [inputPwd, setInputPwd] = useState("");
 
-    // 비밀번호 체크 시 일치하면 => 삭제용 모달 열기
     const handleShowForDeleteModal = () => {
-        // 비밀번호 확인 후 삭제용 모달 open
         axios.post('/checkPwd', {
             no: no, 
             password: inputPwd 
         })
         .then((response) => { 
-            if(response.data !== '') { // 비밀번호 틀리면 컨트롤러에서 null 리턴
-                setShowCheckPwdForDeleteModal(false); // 비밀번호 체크 모달창 닫기
-                setDeleteModalOpen(true); // 게시글 삭제 모달창 열기
+            if(response.data) {
+                setDeleteModalOpen(true);
             } else {
                 alert('비밀번호가 일치하지 않습니다.');
             }
@@ -41,8 +35,7 @@ const CheckPwdForDelete = ({checkPwdForDeleteModalOpen, no, setFlag}) => {
 
     return (
         <div>
-            {/*삭제용 비밀번호 체크 모달*/}
-            <Modal show={showCheckPwdForDeleteModal} onHide={closeModal} animation={false}> 
+            <Modal show={showCheckPwdForDelete} onHide={closeModal} animation={false}> 
                 <Modal.Header closeButton onClick={closeModal}>
                     <Modal.Title>게시글 삭제를 위한 비밀번호 확인</Modal.Title>
                 </Modal.Header>
@@ -66,8 +59,15 @@ const CheckPwdForDelete = ({checkPwdForDeleteModalOpen, no, setFlag}) => {
                 </Modal.Footer>
             </Modal>
 
-            {deleteModalOpen &&
-            <DeleteModal deleteModalOpen={deleteModalOpen} no={no} setFlag={setFlag} setDeleteModalOpen={setDeleteModalOpen} />}
+            {
+                deleteModalOpen
+                &&
+                <DeleteModal 
+                    no={no} 
+                    setShowCheckPwdForDelete={setShowCheckPwdForDelete}
+                    setOpen={setOpen}
+                />
+            }
         </div>
     )
 

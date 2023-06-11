@@ -1,29 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function DeleteModal({deleteModalOpen, no, setFlag}) {
+function DeleteModal({no, setShowCheckPwdForDelete, setOpen}) {
     
-    // 게시글 삭제 모달창 토글 state
-    const [showDeleteModal, setShowDeleteModal] = useState(deleteModalOpen);
+    const [showDeleteModal, setShowDeleteModal] = useState(true);
+
+    useEffect(() => {
+        setShowCheckPwdForDelete(false);
+    }, [])
 
     const closeModal = () => {
-        setFlag(true);
-        setShowDeleteModal(false);
+        setOpen(false);
     }
 
-    // 게시글 삭제
     const deletePost = () => {
-
-        // 삭제 delete
         axios.delete('/board/post/' + no)
         .then((response) => {
-            if(response.data === true) {
+            if(response.data) {
                 setShowDeleteModal(false);
                 alert('삭제되었습니다.');
-                setFlag(true);
+                
+                setOpen(false); // 부모 리렌더링 시키기 위한 props state 
             } else {
                 alert('삭제에 실패하였습니다.');
             }
@@ -32,7 +32,6 @@ function DeleteModal({deleteModalOpen, no, setFlag}) {
     
     return (
         <div>
-            {/*삭제용 모달*/}
              <Modal show={showDeleteModal} onHide={closeModal}> 
                 <Modal.Header closeButton onClick={closeModal}>
                     <Modal.Title>게시글 삭제</Modal.Title>
