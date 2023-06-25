@@ -5,9 +5,9 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Form } from "react-bootstrap";
 
-function InsertModal({open, sessionStorage, setOpen}) {
+const InsertDialog = ({open, sessionStorage, setOpen}) => {
 
-    const closeModal = () => {
+    const closeDialog = () => {
         setOpen(false);
     }
 
@@ -76,7 +76,7 @@ function InsertModal({open, sessionStorage, setOpen}) {
         .then((response) => {
             if(response.data === true) {
                 alert('등록되었습니다.');
-                closeModal();
+                closeDialog();
             } else {
                 alert('등록에 실패하였습니다.');
             }
@@ -85,8 +85,8 @@ function InsertModal({open, sessionStorage, setOpen}) {
 
     return (
         <div>
-            <Modal show={open} onHide={closeModal}> 
-                <Modal.Header closeButton onClick={closeModal}>
+            <Modal show={open} onHide={closeDialog}> 
+                <Modal.Header closeButton onClick={closeDialog}>
                     <Modal.Title>게시글 등록</Modal.Title>
                 </Modal.Header>
     
@@ -145,10 +145,10 @@ function InsertModal({open, sessionStorage, setOpen}) {
                 </Modal.Body>
     
                 <Modal.Footer>
-                    <Button className="cancleBtn" onClick={closeModal}>
+                    <Button className="cancleBtn" onClick={closeDialog}>
                         취소
                     </Button>
-                    <Button className="readModal_insertBtn" onClick={() => {
+                    <Button onClick={() => {
                         insertPost();
                     }}>
                         등록
@@ -159,4 +159,4 @@ function InsertModal({open, sessionStorage, setOpen}) {
     )
 }
 
-export default InsertModal;
+export default InsertDialog;

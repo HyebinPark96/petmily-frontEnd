@@ -5,9 +5,9 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Form } from "react-bootstrap";
 
-const UpdateModal = ({setShowCheckPwdForUpdate, setOpen, no}) => {
+const UpdateDialog = ({setShowCheckPwdForUpdate, setOpen, no}) => {
 
-    const [showUpdateModal, setShowUpdateModal] = useState(true);
+    const [showUpdateDialog, setShowUpdateDialog] = useState(true);
     const [postInfo, setPostInfo] = useState({});
 
     const getPostInfo = () => {
@@ -22,7 +22,7 @@ const UpdateModal = ({setShowCheckPwdForUpdate, setOpen, no}) => {
         getPostInfo();
     }, [])
 
-    const closeModal = () => {
+    const closeDialog = () => {
         setOpen(false); // 초기화
     };
 
@@ -42,7 +42,6 @@ const UpdateModal = ({setShowCheckPwdForUpdate, setOpen, no}) => {
 
             if(file !== undefined && file.name !== '') { // 새로운 파일 업로드한 경우
 
-                console.log('새로운 파일 업로드한 경우');
                 // 1. 기존 파일 제거or수정하고 새로운 파일 업로드한 경우
                     // 각 상황에 맞게 서버에 상태를 전달하여 그 값에 따라 서버단에서 로컬 파일 수정 및 삭제하기.                
                 // 2. 기존 파일 없는 상태에서 새로운 파일 업로드한 경우
@@ -60,9 +59,7 @@ const UpdateModal = ({setShowCheckPwdForUpdate, setOpen, no}) => {
                 formData.append("post", new Blob([JSON.stringify(postInfo)], {type: "application/json"})); 
 
             } else { // 새로운 파일 업로드하지 않은 경우 
-                console.log(postInfo.originFile)
                 if(postInfo.originFile === undefined) { // 1. 기존 파일 삭제한 경우 
-                    console.log('새로운 파일 업로드 안하고 1. 기존 파일 삭제한 경우 ');
                     setPostInfo({ 
                         ...postInfo,
 
@@ -72,7 +69,6 @@ const UpdateModal = ({setShowCheckPwdForUpdate, setOpen, no}) => {
                         saveFileName: null
                     })
                 } else { // 2. 기존 파일 그대로 두고 수정한 경우
-                    console.log('새로운 파일 업로드 안하고 2. 기존 파일 그대로 두고 수정한 경우');
                     setPostInfo({
                         ...postInfo, 
 
@@ -93,9 +89,8 @@ const UpdateModal = ({setShowCheckPwdForUpdate, setOpen, no}) => {
                 } 
             })
             .then((response) => {
-                console.log(response.data);
                 if(response.data === true) {
-                    closeModal();
+                    closeDialog();
                     alert('수정되었습니다.');
                 } else {
                     alert('수정에 실패하였습니다.');
@@ -109,8 +104,8 @@ const UpdateModal = ({setShowCheckPwdForUpdate, setOpen, no}) => {
 
     return (
         <div>
-            <Modal show={showUpdateModal} onHide={closeModal}> 
-                <Modal.Header closeButton onClick={closeModal}>
+            <Modal show={showUpdateDialog} onHide={closeDialog}> 
+                <Modal.Header closeButton onClick={closeDialog}>
                     <Modal.Title>게시글 수정</Modal.Title>
                 </Modal.Header>
     
@@ -206,7 +201,7 @@ const UpdateModal = ({setShowCheckPwdForUpdate, setOpen, no}) => {
                 </Modal.Body>
     
                 <Modal.Footer>
-                    <Button className="cancleBtn" onClick={closeModal}>
+                    <Button className="cancleBtn" onClick={closeDialog}>
                         취소
                     </Button>
                     <Button className="updateBtn" onClick={() => {
@@ -220,4 +215,4 @@ const UpdateModal = ({setShowCheckPwdForUpdate, setOpen, no}) => {
     )
 }
 
-export default UpdateModal;
+export default UpdateDialog;

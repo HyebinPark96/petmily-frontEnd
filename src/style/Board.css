@@ -1,13 +1,10 @@
-.boardTitle {
-  width: 200px;
-  margin: 30px auto;
-  font-weight: bold;
+body {
+  padding: 0 !important;
+  overflow: visible !important;
 }
 
-.boardDiv {
-  width: 950px;
-  text-align: center;
-  margin: 0 auto;
+body.modal-open, .modal-open .modal {
+  overflow: hidden !important;
 }
 
 .fileImg {
@@ -55,66 +52,6 @@
   background-color: black !important;
 }
 
-.resetBtn {
-  position: absolute;
-  left: 23%;
-  background-color: gray;
-  border: none;
-  height: 37px;
-}
-
-.resetBtn:hover, .resetBtn:active {
-  background-color: gray !important;
-}
-
-.insertBtn {
-  position: absolute;
-  left: 19%;
-  background-color: black;
-  border: none;
-  height: 37px;
-}
-
-.insertBtn:hover, .insertBtn:active {
-  background-color: black !important;
-}
-
-.signUpBtn {
-  position: absolute;
-  right: 24%;
-  background-color: black;
-  border: none;
-  height: 37px;
-}
-
-.signUpBtn:hover, .signUpBtn:active {
-  background-color:black !important;
-}
-
-.signInBtn {
-  position: absolute;
-  right: 19%;
-  background-color: black;
-  border: none;
-  height: 37px;
-}
-
-.signInBtn:hover, .signInBtn:active {
-  background-color: black !important;
-}
-
-.signOutBtn {
-  position: absolute;
-  right: 19%;
-  background-color: black;
-  border: none;
-  height: 37px;
-}
-
-.signOutBtn:hover, .signOutBtn:active {
-  background-color: black !important;
-}
-
 .signUpModal_insertBtn {
   background-color: black;
   border: none;
@@ -131,7 +68,7 @@
   border: none;
   height: 37px;
 }
-
+ 
 .signInModal_signInBtn:hover, .signInModal_signInBtn:active {
   background-color: black !important;
   border: none;
@@ -213,19 +150,6 @@
 .search_keyword {
   display:inline-block; 
   width: 500px;
-}
-
-.searchBtn {
-  border: none;
-  position: absolute;
-  right: 28%;
-  background-color: black;
-  height: 37px;
-  margin-bottom: 5px;
-}
-
-.searchBtn:hover {
-  background-color: black;
 }
 
 .columnForSortForm {

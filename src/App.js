@@ -36,13 +36,12 @@ function App() {
 
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <TabList onChange={handleChange} >
-            <Tab label="BOARD" value="board" />
-            <Tab label="CHART" value="chart" />
+            <Tab label="게시판" value="board" />
+            <Tab label="차트" value="chart" />
           </TabList>
         </Box>
 
         <TabPanel value="board">
-          {/* <Sort /> */}
           <Board />
         </TabPanel>
 

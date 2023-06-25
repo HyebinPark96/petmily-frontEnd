@@ -4,13 +4,13 @@ import moment from "moment";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Form } from "react-bootstrap";
-import CheckPwdForUpdateModal from "../user/CheckPwdForUpdateModal";
-import CheckPwdForDeleteModal from "../user/CheckPwdForDeleteModal";
+import CheckPwdForUpdateDialog from "./CheckPwdForUpdateDialog";
+import CheckPwdForDeleteDialog from "./CheckPwdForDeleteDialog";
 
-function ReadModal({open, no, setOpen}) {
+const ReadDialog = ({open, no, setOpen}) => {
 
-    const [checkPwdForDeleteModalOpen, setCheckPwdForDeleteModalOpen] = useState(false);
-    const [checkPwdForUpdateModalOpen, setCheckPwdForUpdateModalOpen] = useState(false);
+    const [checkPwdForDeleteDialogOpen, setCheckPwdForDeleteDialogOpen] = useState(false);
+    const [checkPwdForUpdateDialogOpen, setCheckPwdForUpdateDialogOpen] = useState(false);
     const [post, setPost] = useState({});
 
     useEffect(() => {
@@ -20,14 +20,14 @@ function ReadModal({open, no, setOpen}) {
         })
     }, [])
 
-    function closeModal() {
+    function closeDialog() {
         setOpen(false);
     } 
 
     return (
         <div>
-            <Modal show={open} onHide={closeModal} animation={false}>
-                <Modal.Header closeButton onClick={closeModal}>
+            <Modal show={open} onHide={closeDialog} animation={false}>
+                <Modal.Header closeButton onClick={closeDialog}>
                     <Modal.Title>게시글 읽기</Modal.Title>
                 </Modal.Header>
 
@@ -80,13 +80,13 @@ function ReadModal({open, no, setOpen}) {
 
                 <Modal.Footer>
                      <Button className="updateBtn" onClick={() =>{
-                        setCheckPwdForUpdateModalOpen(true);
+                        setCheckPwdForUpdateDialogOpen(true);
                         setOpen(false);
                         }}
                     >수정
                     </Button>
                     <Button className="deleteBtn" onClick={() => {
-                        setCheckPwdForDeleteModalOpen(true);
+                        setCheckPwdForDeleteDialogOpen(true);
                         setOpen(false);
                         }}
                     >삭제
@@ -95,19 +95,19 @@ function ReadModal({open, no, setOpen}) {
             </Modal>
 
             {/* 게시글 수정을 위한 비밀번호 체크 모달창 */}
-            {checkPwdForUpdateModalOpen &&
-            <CheckPwdForUpdateModal 
-                checkPwdForUpdateModalOpen={checkPwdForUpdateModalOpen} 
+            {checkPwdForUpdateDialogOpen &&
+            <CheckPwdForUpdateDialog
+                checkPwdForUpdateDialogOpen={checkPwdForUpdateDialogOpen} 
                 no={no} 
             />}
 
             {/* 게시글 삭제를 위한 비밀번호 체크 모달창 */}
-            {checkPwdForDeleteModalOpen &&
-            <CheckPwdForDeleteModal 
-                checkPwdForDeleteModalOpen={checkPwdForDeleteModalOpen} 
+            {checkPwdForDeleteDialogOpen &&
+            <CheckPwdForDeleteDialog
+                checkPwdForDeleteDialogOpen={checkPwdForDeleteDialogOpen} 
                 no={no} 
             />}
         </div>
     );
 }
-export default ReadModal;
+export default ReadDialog;

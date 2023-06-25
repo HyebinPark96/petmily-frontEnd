@@ -7,9 +7,9 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Form } from "react-bootstrap";
 
-const SignUpModal = ({open, setOpen}) => {
+const SignUpDialog = ({open, setOpen}) => {
 
-    const closeModal = () => {
+    const closeDialog = () => {
         setOpen(false);
     }
 
@@ -43,7 +43,7 @@ const SignUpModal = ({open, setOpen}) => {
         .then(response => {
             if(response.data) {
                 alert('회원가입이 완료되었습니다.');
-                closeModal();
+                closeDialog();
             } else {
                 alert('회원가입에 실패하였습니다.');
             }
@@ -56,8 +56,8 @@ const SignUpModal = ({open, setOpen}) => {
     return (
             <div>
                 {/*회원가입용 모달*/}
-                <Modal show={open} onHide={closeModal}> 
-                    <Modal.Header closeButton onClick={closeModal}>
+                <Modal show={open} onHide={closeDialog}> 
+                    <Modal.Header closeButton onClick={closeDialog}>
                         <Modal.Title>회원가입</Modal.Title>
                     </Modal.Header>
         
@@ -98,10 +98,10 @@ const SignUpModal = ({open, setOpen}) => {
                     </Modal.Body>
         
                     <Modal.Footer>
-                        <Button className="cancleBtn" onClick={closeModal}>
+                        <Button className="cancleBtn" onClick={closeDialog}>
                             취소
                         </Button>
-                        <Button className="signUpModal_insertBtn" onClick={() => {
+                        <Button onClick={() => {
                             insertUser();
                         }}>
                             등록
@@ -112,4 +112,4 @@ const SignUpModal = ({open, setOpen}) => {
     ) 
 }
 
-export default SignUpModal;
+export default SignUpDialog;
