@@ -6,12 +6,12 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Form } from "react-bootstrap";
 
-const SignInModal = ({signInModalOpen, setSavedUserId, setSavedUserPwd, sessionStorage}) => {
+const SignInDialog = ({signInDialogOpen, setSavedUserId, setSavedUserPwd, sessionStorage}) => {
 
-    const [showSignInModal, setShowSignInModal] = useState(signInModalOpen);
+    const [showSignInDialog, setShowSignInDialog] = useState(signInDialogOpen);
 
-    const closeModal = () => {
-        setShowSignInModal(false);
+    const closeDialog = () => {
+        setShowSignInDialog(false);
     }
 
     // 로그인 시 사용되는 state
@@ -42,7 +42,7 @@ const SignInModal = ({signInModalOpen, setSavedUserId, setSavedUserPwd, sessionS
                 setSavedUserPwd(sessionStorage.getItem("savedUserPassword"));
 
                 alert('로그인 되었습니다.');
-                closeModal();
+                closeDialog();
             } else {
                 alert('아이디 또는 비밀번호가 잘못되었습니다.');
             }
@@ -54,9 +54,8 @@ const SignInModal = ({signInModalOpen, setSavedUserId, setSavedUserPwd, sessionS
     
     return (
             <div>
-                <Modal show={showSignInModal} onHide={closeModal}> 
-                    {/* <Header boardTitle="S I G N I N"/> */}
-                    <Modal.Header closeButton onClick={closeModal}>
+                <Modal show={showSignInDialog} onHide={closeDialog}> 
+                    <Modal.Header closeButton onClick={closeDialog}>
                         <Modal.Title>로그인</Modal.Title>
                     </Modal.Header>
         
@@ -79,10 +78,10 @@ const SignInModal = ({signInModalOpen, setSavedUserId, setSavedUserPwd, sessionS
                     </Modal.Body>
         
                     <Modal.Footer>
-                        <Button className="cancleBtn" onClick={closeModal}>
+                        <Button className="cancleBtn" onClick={closeDialog}>
                             취소
                         </Button>
-                        <Button className="signInModal_signInBtn" onClick={() => {
+                        <Button onClick={() => {
                             signIn();
                         }}>
                             로그인
@@ -93,4 +92,4 @@ const SignInModal = ({signInModalOpen, setSavedUserId, setSavedUserPwd, sessionS
     ) 
 }   
 
-export default SignInModal;
+export default SignInDialog;

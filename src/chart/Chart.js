@@ -1,5 +1,4 @@
 import React, {useState, useEffect, useLayoutEffect} from 'react';
-import Header from '../board/component/Header';
 import axios from 'axios';
 import moment from 'moment';
 
@@ -7,7 +6,6 @@ import moment from 'moment';
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated"; 
-
 
 const AmChart = () => {
 
@@ -94,11 +92,7 @@ const AmChart = () => {
 const Chart = () => {
     return (
         <div>
-            <Header boardTitle="C H A R T" />
-
-            {/* 여기에 차트 그리기 */}
             <AmChart />
-            
         </div>
     )
 }

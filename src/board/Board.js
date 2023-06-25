@@ -2,17 +2,17 @@ import React, {useState, useEffect, forwardRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../style/Board.css';
 
-import ReadModal from './component/ReadModal';
-import CheckPwdForDeleteModal from './user/CheckPwdForDeleteModal'
-import CheckPwdForUpdateModal from './user/CheckPwdForUpdateModal';
-import InsertModal from './component/InsertModal';
-import Header from './component/Header';
-import SignUpModal from './user/SignUpModal';
-import SignInModal from './user/SignInModal';
+import ReadDialog from './component/dialog/ReadDialog';
+import CheckPwdForDeleteDialog from './component/dialog/CheckPwdForDeleteDialog'
+import CheckPwdForUpdateDialog from './component/dialog/CheckPwdForUpdateDialog';
+import InsertDialog from './component/dialog/InsertDialog';
+import Stack from '@mui/material/Stack';
+import SignUpDialog from './user/SignUpDialog';
+import SignInDialog from './user/SignInDialog';
 
 import axios from 'axios';
 import moment from 'moment';
-import Button from 'react-bootstrap/Button';
+import Button from '@mui/material/Button';
 import { Form } from 'react-bootstrap';
 import MaterialTable from 'material-table';
 
@@ -36,6 +36,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import CheckIcon from '@mui/icons-material/Check';
 import CreateIcon from '@mui/icons-material/Create';
 import PhotoIcon from '@mui/icons-material/Photo';
+import AddIcon from '@material-ui/icons/Add';
 
 // 아이콘
 const tableIcons = {
@@ -59,18 +60,17 @@ const tableIcons = {
 };
 
 const Board = () => {   
-
     // 모달 공통 state 및 로직 
     const [open, setOpen] = useState(false);
-    const [modalName, setModalName] = useState("");
-    const openModal = (modalName) => {
+    const [dialogName, setDialogName] = useState("");
+    const openDialog = (dialogName) => {
         setOpen(true);
-        setModalName(modalName);
+        setDialogName(dialogName);
     }
-    const openPostRelatedModal = (no, modalName) => {
+    const openPostRelatedDialog = (no, dialogName) => {
         setNo(no);
         setOpen(true);
-        setModalName(modalName);
+        setDialogName(dialogName);
     }
   
     // 세션의 종류 2가지 (둘 다 저장소의 개념에 불과하다.)
@@ -86,61 +86,16 @@ const Board = () => {
     const [boardList, setBoardList] = useState([]);
 
     // 검색용 state
-    const [search_category, setsearch_category] = useState("subject"); 
-    const [search_keyword, setsearch_keyword] = useState(""); 
+    const [search_category, setCategory] = useState("subject"); 
+    const [search_keyword, setKeyword] = useState(""); 
 
     // 페이지네이션 state
     const [postCnt, setPostCnt] = useState(0); // 게시글 총 개수
     
     // 등록, 수정 시 set할 state 
     const [no, setNo] = useState(0);
- 
-    // 수정/삭제/게시글 조회/검색/정렬 시 true로 초기화되며 리렌더링됨
-    const [flag, setFlag] = useState(false);
-  
-    // 검색 초기화
-    const reset = () => {
-        // 검색조건 초기화
-        setsearch_category("subject");
-        setsearch_keyword("");
-        
-        axios({
-            url: '/board',
-            method: 'POST',
-            data: {
-                search_category: search_category,
-                search_keyword: search_keyword
-            }
-        })
-        .then((response) => {
-            if(response.data.postCnt > 0) { 
-                const data = response.data.result.map((rowData) => (
-                    {
-                        no: rowData.no,
-                        writer: rowData.writer,
-                        subject: rowData.subject,
-                        content: rowData.content,
-                        writeDate: moment(rowData.writeDate).format('YYYY-MM-DD HH:mm:ss'), // 형변환
-                        password: rowData.password,
-                        viewCnt: rowData.viewCnt,
-                        saveFileDir: rowData.saveFileDir
-                    }
-                ))
 
-                setBoardList(data);
-                setPostCnt(response.data.postCnt);
-
-                setFlag(true);
-            } else { 
-                setBoardList([]); // 빈 배열로 초기화
-                setPostCnt(response.data.postCnt);           
-
-                setFlag(true);
-            }
-        });
-    } 
-
-    useEffect(() => {
+    const getList = () => {
         axios({
             url: '/board',
             method: 'POST',
@@ -165,154 +120,148 @@ const Board = () => {
                 ))
                 setBoardList(data); 
                 setPostCnt(response.data.postCnt); 
-            } else { // 데이터 0개인 경우
-                setBoardList([]); // 빈배열로 초기화
-                setPostCnt(response.data.postCnt); // 0개
+            } else { 
+                setBoardList([]);
+                setPostCnt(response.data.postCnt); 
             }
         });
+    }
+  
+    // 검색 초기화
+    const reset = () => {
+        setCategory("subject");
+        setKeyword("");
+        
+        axios({
+            url: '/board',
+            method: 'POST',
+            data: {
+                search_category: 'subject',
+                search_keyword: ''
+            }
+        })
+        .then((response) => {
+            if(response.data.postCnt > 0) { 
+                const data = response.data.result.map((rowData) => (
+                    {
+                        no: rowData.no,
+                        writer: rowData.writer,
+                        subject: rowData.subject,
+                        content: rowData.content,
+                        writeDate: moment(rowData.writeDate).format('YYYY-MM-DD HH:mm:ss'), 
+                        password: rowData.password,
+                        viewCnt: rowData.viewCnt,
+                        saveFileDir: rowData.saveFileDir
+                    }
+                ))
+                setBoardList(data); 
+                setPostCnt(response.data.postCnt); 
+            } else { 
+                setBoardList([]);
+                setPostCnt(response.data.postCnt); 
+            }
+        });
+    } 
+
+    useEffect(() => {
+        getList();
     },[open]) 
 
 
     return (
         <div>
-            <Button className="insertBtn" onClick={() => openModal("INSERT")}>
-                등록
-            </Button>
+            {/* {
+                sessionStorage.getItem("savedUserId") === null 
+                &&
+                <div>
+                    <Button variant="outlined" className="signUpBtn" onClick={() => {openDialog("SIGNUP")}}>
+                        회원가입
+                    </Button>
 
-            <Button className="resetBtn" onClick={reset}>
-                초기화
-            </Button> 
-            
-            {sessionStorage.getItem("savedUserId") === null &&
-            <Button className="signUpBtn" onClick={() => {openModal("SIGNUP")}}>
-                회원가입
-             </Button>}
+                    <Button variant="outlined" className="signInBtn" onClick={() => {openDialog("SIGNIN")}}>
+                        로그인
+                    </Button>
+                </div>
+            } */}
 
-             {sessionStorage.getItem("savedUserId") === null &&
-            <Button className="signInBtn" onClick={() => {openModal("SIGNIN")}}>
-                로그인
-            </Button>}
+            {
+                sessionStorage.getItem("savedUserId") !== null 
+                &&
+                <Button onClick={()=>{
+                    sessionStorage.clear();
+                    setSavedUserId(sessionStorage.getItem("savedUserId"));
+                    setSavedUserPwd(sessionStorage.getItem("savedUserPassword"));
+                }} className="signOutBtn">로그아웃</Button>
+            }
 
-            {sessionStorage.getItem("savedUserId") !== null &&
-            <Button onClick={()=>{
-                sessionStorage.clear();
-                setSavedUserId(sessionStorage.getItem("savedUserId"));
-                setSavedUserPwd(sessionStorage.getItem("savedUserPassword"));
-            }} className="signOutBtn">로그아웃</Button>}
+            <Stack justifyContent="center" alignItems="center" direction="row" spacing={2}>
+                <Form.Select className="search_category" value={search_category}
+                    onChange={(e) => {
+                        setCategory(e.target.value);
+                    }}
+                >
+                    <option value="subject">제목</option>
+                    <option value="content">내용</option>
+                    <option value="writer">작성자</option>
+                </Form.Select>
+                
+                <Form.Control type="text" className="search_keyword" placeholder='검색어를 입력하세요.' value={search_keyword}
+                     onChange={(e) => {
+                        setKeyword(e.target.value);
+                    }} 
+                />
 
-            <Header boardTitle="게시판" />
-            
-            <div className="boardDiv">
-                <MaterialTable 
-                    key={boardList.length}
-                    // title="게시판"
-                    icons={tableIcons}
-
-                    columns={[
-                        { title: '글 번호', field: 'no',
-                            cellStyle: {
-                                width: "120px",
-                                textAlign: 'center'
-                            },
-                            headerStyle: {
-                                textAlign: 'center'
-                            }
-                        },
-                        { title: '제목', field: 'subject', 
-                            cellStyle: {
-                                width: "150px",
-                                textAlign: 'center'
-                            },
-                            headerStyle: {
-                                textAlign: 'center'
-                            }
-                        },
-                        { title: '작성자', field: 'writer',
-                            cellStyle: {
-                                width: "150px",
-                                textAlign: 'center'
-                            },
-                            headerStyle: {
-                                textAlign: 'center'
-                            }
-                        },
-                        { title: '작성일자', field: 'writeDate', 
-                            defaultSort: 'desc',
-                            cellStyle: {
-                                width: "200px",
-                                textAlign: 'center'
-                            },
-                            headerStyle: {
-                                textAlign: 'center'
-                            }
-                        },
-                        { title: '조회수', field: 'viewCnt', type: 'numeric',
-                            cellStyle: {
-                                width: "120px",
-                                textAlign: 'center'
-                            },
-                            headerStyle: {
-                                textAlign: 'center'
-                            }
-                        },
-                    ]}
+                <Button variant="contained" className="searchBtn" onClick={() => {
+                    // 함수 만들기
+                    if(search_keyword === '') {
+                        alert('검색어를 입력해주세요.');
+                        return false;
+                    }
+                    getList();
+                }}>검색</Button> 
                     
-                    data={
-                        boardList
-
-/*                  
-                    // 공식문서의 map 안돌리는 방법 // 무한 렌더링 문제생겨서 일단 보류
-                    (query) => {
-                        new Promise((resolve, reject) => {
-                            axios({
-                                  url: '/board',
-                                  method: 'POST',
-                                  data: {
-                                      search_category: search_category,
-                                      search_keyword: search_keyword
-                                  }
-                              })
-                              .then(response => response)
-                              .then(results => {
-                                console.log('test');
-                                if(results.data.postCnt > 0) {
-                                    console.log('O');
-                                    resolve({
-                                        data: results.data.result,
-                                        // 차후 10 => pageSize로 변경
-                                        page: Math.ceil(results.data.postCnt / 10),  
-                                        totalCount: results.data.postCnt
-                                    })
-                                    
-                                } else { // 총 데이터 0개인 경우
-                                    console.log('X');
-                                    resolve({
-                                        data: [], // 빈배열로 초기화
-                                        page: Math.ceil(results.data.postCnt / 10),  
-                                        totalCount: results.data.postCnt
-                                    })
-    
-                                }
-                            })
-                        })
-                    } */
-                }
+                <Button variant="outlined" className="resetBtn" onClick={reset}>
+                    초기화
+                </Button> 
+            </Stack>
+                
+            <MaterialTable 
+                key={boardList.length}
+                title="게시판"
+                icons={tableIcons}
+                columns={[
+                    { title: '글 번호', field: 'no', width: '10%', headerStyle: {textAlign: 'center'}, cellStyle: {textAlign: 'center'}},
+                    { title: '제목', field: 'subject', width: '20%', headerStyle: {textAlign: 'center'}, cellStyle: {textAlign: 'center'}},
+                    { title: '작성자', field: 'writer', width: '10%', headerStyle: {textAlign: 'center'}, cellStyle: {textAlign: 'center'}},
+                    { title: '작성일자', field: 'writeDate', width: '20%', headerStyle: {textAlign: 'center'}, cellStyle: {textAlign: 'center'},
+                        defaultSort: 'desc'
+                    },
+                    { title: '조회수', field: 'viewCnt', width: '10%', headerStyle: {textAlign: 'center'}, cellStyle: {textAlign: 'center'}, type: 'numeric'},
+                ]}
+                    
+                data={boardList}
 
                 actions={[
                     {
                         icon: CheckIcon,
-                        tooltip: 'Read Post',
-                        onClick: (event, rowData) => openPostRelatedModal(rowData.no, "READ")
+                        // tooltip: 'Read Post',
+                        onClick: (event, rowData) => openPostRelatedDialog(rowData.no, "READ")
                     },
                     {
                         icon: DeleteIcon,
-                        tooltip: 'Delete Post',
-                        onClick: (event, rowData) => openPostRelatedModal(rowData.no, "CHECKPWD_DELETE")
+                        // tooltip: 'Delete Post',
+                        onClick: (event, rowData) => openPostRelatedDialog(rowData.no, "CHECKPWD_DELETE")
                     },
                     {
                         icon: CreateIcon,
-                        tooltip: 'Update Post',
-                        onClick: (event, rowData) => openPostRelatedModal(rowData.no, "CHECKPWD_UPDATE")
+                        // tooltip: 'Update Post',
+                        onClick: (event, rowData) => openPostRelatedDialog(rowData.no, "CHECKPWD_UPDATE")
+                    },
+                    {
+                        icon: AddIcon,
+                        // tooltip: 'Add Post',
+                        isFreeAction: true,
+                        onClick: () => openDialog("INSERT")
                     },
                     rowData => ({
                         icon: PhotoIcon,
@@ -326,76 +275,50 @@ const Board = () => {
                     paginationType: "stepped",
                     search: false,
                     sorting: true,
+                    // actionsCellStyle: {width: '10%'}
                 }}
             />
-            </div><br></br>
-
-            <Button className="searchBtn" onClick={() => {
-                if(search_keyword === '') {
-                    alert('검색어를 입력해주세요.');
-                    return false;
-                }
-                setFlag(true); 
-            }}>검색</Button> 
-
-            <div className="searchDiv">
-                <Form.Select className="search_category" value={search_category}
-                    onChange={(e) => {
-                        setsearch_category(e.target.value);
-                    }}
-                >
-                    <option value="subject">제목</option>
-                    <option value="content">내용</option>
-                    <option value="writer">작성자</option>
-                </Form.Select>
-                
-                <Form.Control type="text" className="search_keyword" placeholder='검색어를 입력하세요.' value={search_keyword}
-                     onChange={(e) => {
-                        setsearch_keyword(e.target.value);
-                    }} 
-                />
-            </div><br></br>
 
             {/* 게시글 등록 모달창 */}
             {
-                (modalName === "INSERT" && open) 
+                (dialogName === "INSERT" && open) 
                 && 
-                <InsertModal open={open} sessionStorage={sessionStorage} setOpen={setOpen} />
+                <InsertDialog open={open} sessionStorage={sessionStorage} setOpen={setOpen} />
             } 
             
             {/* 게시글 상세 모달창 */}
             {
-                (modalName === "READ" && open) 
+                (dialogName === "READ" && open) 
                 && 
-                <ReadModal open={open} no={no} setOpen={setOpen} />
+                <ReadDialog open={open} no={no} setOpen={setOpen} />
             }
 
             {/* 게시글 수정을 위한 비밀번호 체크 모달창 */}
             {
-                (modalName === "CHECKPWD_UPDATE" && open) 
+                (dialogName === "CHECKPWD_UPDATE" && open) 
                 && 
-                <CheckPwdForUpdateModal no={no} setOpen={setOpen} />
+                <CheckPwdForUpdateDialog no={no} setOpen={setOpen} />
             }
         
             {/* 게시글 삭제를 위한 비밀번호 체크 모달창 */}
             {
-                (modalName === "CHECKPWD_DELETE" && open) 
+                (dialogName === "CHECKPWD_DELETE" && open) 
                 &&
-                <CheckPwdForDeleteModal open={open} no={no} setOpen={setOpen} />
+                <CheckPwdForDeleteDialog open={open} no={no} setOpen={setOpen} />
             }
         
             {/* 회원가입 모달창 */}
             {
-                (modalName === "SIGNUP" && open) 
+                (dialogName === "SIGNUP" && open) 
                 &&
-                <SignUpModal open={open} setOpen={setOpen} />
+                <SignUpDialog open={open} setOpen={setOpen} />
             }
 
             {/* 로그인 모달창 */}
             {
-                (modalName === "SIGNIN" && sessionStorage.getItem("savedUserId") === null && open)  
+                (dialogName === "SIGNIN" && sessionStorage.getItem("savedUserId") === null && open)  
                 &&
-                <SignInModal 
+                <SignInDialog 
                     sessionStorage={sessionStorage} 
                     setSavedUserId={setSavedUserId} 
                     setSavedUserPwd={setSavedUserPwd} 
