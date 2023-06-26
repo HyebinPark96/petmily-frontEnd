@@ -8,49 +8,29 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
+import Main from './main';
+
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Topbar from './topbar';
+import NotFound from './notFound';
+import IntroducePage from './introduce/introducePage';
+import ReservationPage from './reservation/reservationPage';
 
 function App() {
-  // 탭
-  const [tabValue, setTabValue] = useState("board"); // 초기화
-
-  // 특정 탭 콘텐츠 보이게 OR 안보이게
-  const [isBoardShow, setIsBoardShow] = useState(true); // 초기화 탭 board 이므로 디폴트 true
-  const [isChartShow, setIsChartShow] = useState(false); // 디폴트 false
-
-  // 탭 변경
-  function handleChange (event, tabValue) { // 매개변수 event 없으면 에러 
-    setTabValue(tabValue); // 선택한 tab의 value로 set하면 UI도 그에따라 변경됨 
-
-    if(tabValue === 'board') { 
-        setIsChartShow(false);
-        setIsBoardShow(true);
-     } else if(tabValue === 'chart') {
-        setIsChartShow(true);
-        setIsBoardShow(false);       
-    }
-  }
        
   return (
-    <div>
-      <TabContext value={tabValue}>
-
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <TabList onChange={handleChange} >
-            <Tab label="게시판" value="board" />
-            <Tab label="차트" value="chart" />
-          </TabList>
-        </Box>
-
-        <TabPanel value="board">
-          <Board />
-        </TabPanel>
-
-        <TabPanel value="chart">
-          <Chart />
-        </TabPanel>
-        
-      </TabContext>
-    </div>
+    <>
+      <BrowserRouter>
+				<Topbar />
+				<Routes>
+					<Route path="/" element={<main />}></Route>
+					<Route path="/api/introduce" element={<IntroducePage />}></Route>
+					<Route path="/api/reservation" element={<ReservationPage />}></Route>
+					<Route path="/api/board" element={<Board />}></Route>
+					<Route path="*" element={<NotFound />}></Route>
+				</Routes>
+			</BrowserRouter>
+    </>
   )
 
 }
