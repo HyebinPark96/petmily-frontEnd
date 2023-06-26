@@ -1,36 +1,20 @@
-import React, {useState, useEffect, forwardRef } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../style/Board.css';
+import React, { useState, useEffect, forwardRef } from 'react';
+import axios from 'axios';
+import moment from 'moment';
 
 import ReadDialog from './component/dialog/ReadDialog';
 import CheckPwdForDeleteDialog from './component/dialog/CheckPwdForDeleteDialog'
 import CheckPwdForUpdateDialog from './component/dialog/CheckPwdForUpdateDialog';
 import InsertDialog from './component/dialog/InsertDialog';
-import Stack from '@mui/material/Stack';
 import SignUpDialog from './user/SignUpDialog';
 import SignInDialog from './user/SignInDialog';
 
-import axios from 'axios';
-import moment from 'moment';
-import Button from '@mui/material/Button';
 import { Form } from 'react-bootstrap';
+
 import MaterialTable from 'material-table';
 
-import AddBox from '@material-ui/icons/AddBox';
-import ArrowDownward from '@material-ui/icons/ArrowDownward';
-import Check from '@material-ui/icons/Check';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
-import ChevronRight from '@material-ui/icons/ChevronRight';
-import Clear from '@material-ui/icons/Clear';
-import DeleteOutline from '@material-ui/icons/DeleteOutline';
-import Edit from '@material-ui/icons/Edit';
-import FilterList from '@material-ui/icons/FilterList';
-import FirstPage from '@material-ui/icons/FirstPage';
-import LastPage from '@material-ui/icons/LastPage';
-import Remove from '@material-ui/icons/Remove';
-import SaveAlt from '@material-ui/icons/SaveAlt';
-import Search from '@material-ui/icons/Search';
-import ViewColumn from '@material-ui/icons/ViewColumn';
+import * as mui from '@mui/material';
+import * as icon1 from '@material-ui/icons'
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import CheckIcon from '@mui/icons-material/Check';
@@ -40,23 +24,23 @@ import AddIcon from '@material-ui/icons/Add';
 
 // 아이콘
 const tableIcons = {
-    Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
-    Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
-    Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
-    Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
-    DetailPanel: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
-    Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
-    Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
-    Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
-    FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
-    LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
-    NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
-    PreviousPage: forwardRef((props, ref) => <ChevronLeft {...props} ref={ref} />),
-    ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
-    Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
-    SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
-    ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
-    ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
+    Add: forwardRef((props, ref) => <icon1.AddBox {...props} ref={ref} />),
+    Check: forwardRef((props, ref) => <icon1.Check {...props} ref={ref} />),
+    Clear: forwardRef((props, ref) => <icon1.Clear {...props} ref={ref} />),
+    Delete: forwardRef((props, ref) => <icon1.DeleteOutline {...props} ref={ref} />),
+    DetailPanel: forwardRef((props, ref) => <icon1.ChevronRight {...props} ref={ref} />),
+    Edit: forwardRef((props, ref) => <icon1.Edit {...props} ref={ref} />),
+    Export: forwardRef((props, ref) => <icon1.SaveAlt {...props} ref={ref} />),
+    Filter: forwardRef((props, ref) => <icon1.FilterList {...props} ref={ref} />),
+    FirstPage: forwardRef((props, ref) => <icon1.FirstPage {...props} ref={ref} />),
+    LastPage: forwardRef((props, ref) => <icon1.LastPage {...props} ref={ref} />),
+    NextPage: forwardRef((props, ref) => <icon1.ChevronRight {...props} ref={ref} />),
+    PreviousPage: forwardRef((props, ref) => <icon1.ChevronLeft {...props} ref={ref} />),
+    ResetSearch: forwardRef((props, ref) => <icon1.Clear {...props} ref={ref} />),
+    Search: forwardRef((props, ref) => <icon1.Search {...props} ref={ref} />),
+    SortArrow: forwardRef((props, ref) => <icon1.ArrowDownward {...props} ref={ref} />),
+    ThirdStateCheck: forwardRef((props, ref) => <icon1.Remove {...props} ref={ref} />),
+    ViewColumn: forwardRef((props, ref) => <icon1.ViewColumn {...props} ref={ref} />)
 };
 
 const Board = () => {   
@@ -97,7 +81,7 @@ const Board = () => {
 
     const getList = () => {
         axios({
-            url: '/board',
+            url: '/api/board',
             method: 'POST',
             data: {
                 search_category: search_category,
@@ -187,14 +171,13 @@ const Board = () => {
             {
                 sessionStorage.getItem("savedUserId") !== null 
                 &&
-                <Button onClick={()=>{
+                <mui.Button onClick={()=>{
                     sessionStorage.clear();
                     setSavedUserId(sessionStorage.getItem("savedUserId"));
                     setSavedUserPwd(sessionStorage.getItem("savedUserPassword"));
-                }} className="signOutBtn">로그아웃</Button>
+                }} className="signOutBtn">로그아웃</mui.Button>
             }
-
-            <Stack justifyContent="center" alignItems="center" direction="row" spacing={2}>
+            <mui.Stack className="stack" justifyContent="center" alignItems="center" direction="row" spacing={2}>
                 <Form.Select className="search_category" value={search_category}
                     onChange={(e) => {
                         setCategory(e.target.value);
@@ -211,23 +194,23 @@ const Board = () => {
                     }} 
                 />
 
-                <Button variant="contained" className="searchBtn" onClick={() => {
+                <mui.Button variant="contained" className="searchBtn" onClick={() => {
                     // 함수 만들기
                     if(search_keyword === '') {
                         alert('검색어를 입력해주세요.');
                         return false;
                     }
                     getList();
-                }}>검색</Button> 
+                }}>검색</mui.Button> 
                     
-                <Button variant="outlined" className="resetBtn" onClick={reset}>
+                <mui.Button variant="outlined" className="resetBtn" onClick={reset}>
                     초기화
-                </Button> 
-            </Stack>
+                </mui.Button> 
+            </mui.Stack>
                 
             <MaterialTable 
                 key={boardList.length}
-                title="게시판"
+                title="Q&A"
                 icons={tableIcons}
                 columns={[
                     { title: '글 번호', field: 'no', width: '10%', headerStyle: {textAlign: 'center'}, cellStyle: {textAlign: 'center'}},
@@ -244,22 +227,18 @@ const Board = () => {
                 actions={[
                     {
                         icon: CheckIcon,
-                        // tooltip: 'Read Post',
                         onClick: (event, rowData) => openPostRelatedDialog(rowData.no, "READ")
                     },
                     {
                         icon: DeleteIcon,
-                        // tooltip: 'Delete Post',
                         onClick: (event, rowData) => openPostRelatedDialog(rowData.no, "CHECKPWD_DELETE")
                     },
                     {
                         icon: CreateIcon,
-                        // tooltip: 'Update Post',
                         onClick: (event, rowData) => openPostRelatedDialog(rowData.no, "CHECKPWD_UPDATE")
                     },
                     {
                         icon: AddIcon,
-                        // tooltip: 'Add Post',
                         isFreeAction: true,
                         onClick: () => openDialog("INSERT")
                     },
@@ -275,7 +254,6 @@ const Board = () => {
                     paginationType: "stepped",
                     search: false,
                     sorting: true,
-                    // actionsCellStyle: {width: '10%'}
                 }}
             />
 
