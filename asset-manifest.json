@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/static/css/main.ef5fb5ab.css",
-    "main.js": "/static/js/main.1d4db25d.js",
-    "static/js/498.2fd3091a.chunk.js": "/static/js/498.2fd3091a.chunk.js",
-    "static/js/703.e00bc6ce.chunk.js": "/static/js/703.e00bc6ce.chunk.js",
-    "static/js/826.678faf29.chunk.js": "/static/js/826.678faf29.chunk.js",
-    "pdfmake.js": "/static/js/pdfmake.35a9d2af.chunk.js",
-    "canvg.js": "/static/js/canvg.da23ee69.chunk.js",
-    "xlsx.js": "/static/js/xlsx.8ee2dc00.chunk.js",
-    "static/js/707.cfeb2a36.chunk.js": "/static/js/707.cfeb2a36.chunk.js",
-    "index.html": "/index.html",
-    "main.ef5fb5ab.css.map": "/static/css/main.ef5fb5ab.css.map",
-    "main.1d4db25d.js.map": "/static/js/main.1d4db25d.js.map",
-    "498.2fd3091a.chunk.js.map": "/static/js/498.2fd3091a.chunk.js.map",
-    "703.e00bc6ce.chunk.js.map": "/static/js/703.e00bc6ce.chunk.js.map",
-    "826.678faf29.chunk.js.map": "/static/js/826.678faf29.chunk.js.map",
-    "pdfmake.35a9d2af.chunk.js.map": "/static/js/pdfmake.35a9d2af.chunk.js.map",
-    "canvg.da23ee69.chunk.js.map": "/static/js/canvg.da23ee69.chunk.js.map",
-    "xlsx.8ee2dc00.chunk.js.map": "/static/js/xlsx.8ee2dc00.chunk.js.map",
-    "707.cfeb2a36.chunk.js.map": "/static/js/707.cfeb2a36.chunk.js.map"
+    "main.css": "/petmily-frontEnd/static/css/main.ef5fb5ab.css",
+    "main.js": "/petmily-frontEnd/static/js/main.4edb2960.js",
+    "static/js/498.2fd3091a.chunk.js": "/petmily-frontEnd/static/js/498.2fd3091a.chunk.js",
+    "static/js/703.e00bc6ce.chunk.js": "/petmily-frontEnd/static/js/703.e00bc6ce.chunk.js",
+    "static/js/826.678faf29.chunk.js": "/petmily-frontEnd/static/js/826.678faf29.chunk.js",
+    "pdfmake.js": "/petmily-frontEnd/static/js/pdfmake.35a9d2af.chunk.js",
+    "canvg.js": "/petmily-frontEnd/static/js/canvg.da23ee69.chunk.js",
+    "xlsx.js": "/petmily-frontEnd/static/js/xlsx.8ee2dc00.chunk.js",
+    "static/js/707.cfeb2a36.chunk.js": "/petmily-frontEnd/static/js/707.cfeb2a36.chunk.js",
+    "index.html": "/petmily-frontEnd/index.html",
+    "main.ef5fb5ab.css.map": "/petmily-frontEnd/static/css/main.ef5fb5ab.css.map",
+    "main.4edb2960.js.map": "/petmily-frontEnd/static/js/main.4edb2960.js.map",
+    "498.2fd3091a.chunk.js.map": "/petmily-frontEnd/static/js/498.2fd3091a.chunk.js.map",
+    "703.e00bc6ce.chunk.js.map": "/petmily-frontEnd/static/js/703.e00bc6ce.chunk.js.map",
+    "826.678faf29.chunk.js.map": "/petmily-frontEnd/static/js/826.678faf29.chunk.js.map",
+    "pdfmake.35a9d2af.chunk.js.map": "/petmily-frontEnd/static/js/pdfmake.35a9d2af.chunk.js.map",
+    "canvg.da23ee69.chunk.js.map": "/petmily-frontEnd/static/js/canvg.da23ee69.chunk.js.map",
+    "xlsx.8ee2dc00.chunk.js.map": "/petmily-frontEnd/static/js/xlsx.8ee2dc00.chunk.js.map",
+    "707.cfeb2a36.chunk.js.map": "/petmily-frontEnd/static/js/707.cfeb2a36.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ef5fb5ab.css",
-    "static/js/main.1d4db25d.js"
+    "static/js/main.4edb2960.js"
   ]
 }
