@@ -1,4 +1,6 @@
-# 📌 React + Spring Boot 게시판 구현  
+# 📌 (가칭) Petmily 유기동물 정보 시스템   
+
+<!-- # 📌 React + Spring Boot 게시판 구현  
 ## 🔨 개발환경
 * Java Version 8, Gradle / Spring Boot Version 2.6.7 / React Version 17.0.2
 * 사용 라이브러리
@@ -38,4 +40,4 @@
   * 컴포넌트 분리 및 props로 state 넘겨주기
   * state는 상태관리를 위해 필요한 것이므로 일회성 용도는 변수로 관리
   * 가급적 useRef 지양
-  * 구조분해할당(spread 등) 학습
+  * 구조분해할당(spread 등) 학습 -->
