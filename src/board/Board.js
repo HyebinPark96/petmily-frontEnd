@@ -44,7 +44,8 @@ const tableIcons = {
 };
 
 const Board = () => {   
-    // 모달 공통 state 및 로직 
+
+    // 모달 공통 state 및 로직  (store로 옮기는 중) 
     const [open, setOpen] = useState(false);
     const [dialogName, setDialogName] = useState("");
     const openDialog = (dialogName) => {
@@ -56,15 +57,6 @@ const Board = () => {
         setOpen(true);
         setDialogName(dialogName);
     }
-  
-    // 세션의 종류 2가지 (둘 다 저장소의 개념에 불과하다.)
-    // 1. localStorage : 사용자가 삭제하지 않는한 정보가 지속되므로 보안에 취약하다.
-    // 2. sessionStorage : 브라우저를 닫자마자 저장소가 지워진다. (반휘발성)  
-    let sessionStorage = window.sessionStorage;
-
-    // 세션 ID, PWD
-    const [savedUserId, setSavedUserId] = useState("");
-    const [savedUserPwd, setSavedUserPwd] = useState("");
 
     // DB에서 가져올 게시글 리스트 (배열) state
     const [boardList, setBoardList] = useState([]);
@@ -168,7 +160,7 @@ const Board = () => {
                 </div>
             } */}
 
-            {
+            {/* {
                 sessionStorage.getItem("savedUserId") !== null 
                 &&
                 <mui.Button onClick={()=>{
@@ -176,7 +168,8 @@ const Board = () => {
                     setSavedUserId(sessionStorage.getItem("savedUserId"));
                     setSavedUserPwd(sessionStorage.getItem("savedUserPassword"));
                 }} className="signOutBtn">로그아웃</mui.Button>
-            }
+            } */}
+
             <mui.Stack className="stack" justifyContent="center" alignItems="center" direction="row" spacing={2}>
                 <Form.Select className="search_category" value={search_category}
                     onChange={(e) => {
@@ -284,26 +277,6 @@ const Board = () => {
                 &&
                 <CheckPwdForDeleteDialog open={open} no={no} setOpen={setOpen} />
             }
-        
-            {/* 회원가입 모달창 */}
-            {
-                (dialogName === "SIGNUP" && open) 
-                &&
-                <SignUpDialog open={open} setOpen={setOpen} />
-            }
-
-            {/* 로그인 모달창 */}
-            {
-                (dialogName === "SIGNIN" && sessionStorage.getItem("savedUserId") === null && open)  
-                &&
-                <SignInDialog 
-                    sessionStorage={sessionStorage} 
-                    setSavedUserId={setSavedUserId} 
-                    setSavedUserPwd={setSavedUserPwd} 
-                    setOpen={setOpen} 
-                />
-            }  
-    
         </div>
     )
 }
