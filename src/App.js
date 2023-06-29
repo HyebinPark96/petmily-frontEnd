@@ -1,14 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.css';
 import Board from './board/Board';
-import Chart from './chart/Chart';
-
-import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
-import Main from './main';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Topbar from './topbar';

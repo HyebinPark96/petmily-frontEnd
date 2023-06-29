@@ -6,11 +6,18 @@ import '../../style/Board.css';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Form } from "react-bootstrap";
+import useStore from '../../zustand/store';
 
-const SignUpDialog = ({open, setOpen}) => {
+const SignUpDialog = () => {
+
+    // 상태를 꺼낸다.
+    const open = useStore(state => state.open);
+
+    // 스토어에서 상태를 변경하는 함수를 꺼낸다.
+    const updateOpen = useStore(state => state.updateOpen);
 
     const closeDialog = () => {
-        setOpen(false);
+        updateOpen(false);
     }
 
     // 회원가입시 사용되는 state
