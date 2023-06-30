@@ -12,7 +12,7 @@ import SignInDialog from './board/user/SignInDialog';
 
 const pages = ['INTRODUCE ', 'RESERVATION', 'Q&A'];
 const userDialogs = ['SIGNIN', 'SIGNUP']
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['SETTINGS', 'LOGOUT'];
 
 const Topbar = () => {
   let sessionStorage = window.sessionStorage;
@@ -24,25 +24,27 @@ const Topbar = () => {
 
   // 스토어에서 상태를 변경하는 함수를 꺼낸다.
   const updateUserId = useStore(state => state.updateUserId);
-  const updateUserPassword = useStore(state => state.updateUserPassword);
   const openDialog = useStore(state => state.openDialog);
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  }
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
 
   const logout = () => {
-    // console.log(userId);
-    sessionStorage.clear();
+    updateUserId('');
 
-    updateUserId(''/* sessionStorage.getItem("userId") */);
-    updateUserPassword(''/* sessionStorage.getItem("userPassword") */);
+    sessionStorage.setItem("userId", "");
+    sessionStorage.setItem("userPassword", "");
   };
 
-  const handleCloseNavMenu = (e) => {
+  const handleModalOpen = (e) => {
     if(e.target.value === 'SIGNIN') {
       openDialog('SIGNIN');
     } else {
@@ -50,159 +52,160 @@ const Topbar = () => {
     }
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+  const handleCloseUserMenu = (value) => {
+    if(value === "LOGOUT") {
+      logout();
+    }
   };
 
   useEffect(() => {
-    return () => {
 
-    }
+    return () => {}
   }, [userId, dialogName])
 
   return (
     <>
-    <mui.AppBar position="static">
-      <mui.Container maxWidth="xl">
-        <mui.Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <mui.Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </mui.Typography>
-
-          <mui.Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <mui.IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </mui.IconButton>
-            <mui.Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+      <mui.AppBar position="static">
+        <mui.Container maxWidth="xl">
+          <mui.Toolbar disableGutters>
+            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+            <mui.Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/"
               sx={{
-                display: { xs: 'block', md: 'none' },
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
               }}
             >
-              {pages.map((page) => (
-                <mui.MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <mui.Typography textAlign="center">{page}</mui.Typography>
-                </mui.MenuItem>
-              ))}
-            </mui.Menu>
-          </mui.Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <mui.Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </mui.Typography>
-          <mui.Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Link to={page === 'Q&A' ? '/api/board' : (page === 'RESERVATION' ? '/api/reservation' : '/api/introduce')}>
-                <mui.Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                  {page}
-                </mui.Button>
-              </Link>
-            ))}
-          </mui.Box>
+              LOGO
+            </mui.Typography>
 
-          {
-            userId !== ''
-            ?
-            <mui.Box sx={{ flexGrow: 0 }}>
-              <mui.Tooltip title="Open settings">
-                <mui.IconButton onClick={logout} sx={{ p: 0 }}>
-                  <mui.Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                </mui.IconButton>
-              </mui.Tooltip>
+            <mui.Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+              <mui.IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </mui.IconButton>
               <mui.Menu
-                sx={{ mt: '45px' }}
                 id="menu-appbar"
-                anchorEl={anchorElUser}
+                anchorEl={anchorElNav}
                 anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: 'bottom',
+                  horizontal: 'left',
                 }}
                 keepMounted
                 transformOrigin={{
                   vertical: 'top',
-                  horizontal: 'right',
+                  horizontal: 'left',
                 }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
+                open={Boolean(anchorElNav)}
+                onClose={handleModalOpen}
+                sx={{
+                  display: { xs: 'block', md: 'none' },
+                }}
               >
-                {settings.map((setting) => (
-                  <mui.MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <mui.Typography textAlign="center">{setting}</mui.Typography>
+                {pages.map((page) => (
+                  <mui.MenuItem key={page} onClick={handleModalOpen}>
+                    <mui.Typography textAlign="center">{page}</mui.Typography>
                   </mui.MenuItem>
                 ))}
               </mui.Menu>
             </mui.Box>
-            :
-            <mui.Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
-              {userDialogs.map((userDialog) => (
+            <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+            <mui.Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href=""
+              sx={{
+                mr: 2,
+                display: { xs: 'flex', md: 'none' },
+                flexGrow: 1,
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
+            >
+              LOGO
+            </mui.Typography>
+            <mui.Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+              {pages.map((page) => (
+                <Link to={page === 'Q&A' ? '/api/board' : (page === 'RESERVATION' ? '/api/reservation' : '/api/introduce')}>
                   <mui.Button
-                    key={userDialog}
-                    value={userDialog}
-                    onClick={handleCloseNavMenu}
+                    key={page}
+                    onClick={handleModalOpen}
                     sx={{ my: 2, color: 'white', display: 'block' }}
                   >
-                    {userDialog}
+                    {page}
                   </mui.Button>
+                </Link>
               ))}
             </mui.Box>
-          }
+
+            {
+              userId !== ''
+              ?
+              <mui.Box sx={{ flexGrow: 0 }}>
+                <mui.Tooltip title="Open settings">
+                  <mui.IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <mui.Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  </mui.IconButton>
+                </mui.Tooltip>
+                <mui.Menu
+                  sx={{ mt: '45px' }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={Boolean(anchorElUser)}
+/*                   onClose={handleCloseUserMenu} */
+                >
+                  {settings.map((setting) => (
+                    <mui.MenuItem key={setting} onClick={() => handleCloseUserMenu(setting)}>
+                      <mui.Typography textAlign="center">{setting}</mui.Typography>
+                    </mui.MenuItem>
+                  ))}
+                </mui.Menu>
+              </mui.Box>
+              :
+              <mui.Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
+                {userDialogs.map((userDialog) => (
+                    <mui.Button
+                      key={userDialog}
+                      value={userDialog}
+                      onClick={handleModalOpen}
+                      sx={{ my: 2, color: 'white', display: 'block' }}
+                    >
+                      {userDialog}
+                    </mui.Button>
+                ))}
+              </mui.Box>
+            }
          
-        </mui.Toolbar>
-      </mui.Container> 
-    </mui.AppBar>
+          </mui.Toolbar>
+        </mui.Container> 
+      </mui.AppBar>
 
       {/* 회원가입 모달창 */}
       {
@@ -215,12 +218,7 @@ const Topbar = () => {
       {
         (dialogName === "SIGNIN" && sessionStorage.getItem("savedUserId") === null && open)  
         &&
-        <SignInDialog 
-          // sessionStorage={sessionStorage} 
-          // setSavedUserId={setSavedUserId} 
-          // setSavedUserPwd={setSavedUserPwd} 
-          // setOpen={setOpen} 
-        />
+        <SignInDialog />
       }  
     </>
   );

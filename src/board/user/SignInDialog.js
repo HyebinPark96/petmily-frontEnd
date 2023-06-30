@@ -16,21 +16,19 @@ const SignInDialog = () => {
 
     // 상태를 꺼낸다.
     const userId = useStore(state => state.userId);
-    const userPassword = useStore(state => state.userPassword);
+
+    const [userIdInput, setUserIdInput] = useState('');
+    const [userPasswordInput, setUserPasswordInput] = useState('');
+
     const open = useStore(state => state.open);
 
     // 스토어에서 상태를 변경하는 함수를 꺼낸다.
+    const updateUserId = useStore(state => state.updateUserId);
     const updateOpen = useStore(state => state.updateOpen);
     
     useEffect(() => {
-        console.log('signInId : ' + userId);
+        
     }, [userId])
-
-    // 스토어에서 상태를 변경하는 함수를 꺼낸다.
-    const updateUserId = useStore(state => state.updateUserId);
-    const updateUserPassword = useStore(state => state.updateUserPassword);
-
-    const [inputUserInfoForSignIn, setInputUserInfoForSignIn] = useState({ userId: '', userPassword: '' }); 
 
     const closeDialog = () => {
         updateOpen(false);
@@ -39,27 +37,21 @@ const SignInDialog = () => {
     // 로그인 로직 구현
     const signIn = () => {
         // 공백 조건
-        // if(userId === '' || userPassword === '') {
-        //     alert('공백을 제외하고 입력해주세요.');
-        //     return false;
-        // }
+        if(userIdInput === '' || userPasswordInput === '') {
+            alert('공백을 제외하고 입력해주세요.');
+            return false;
+        }
 
         axios.post('/user/signIn', {
-            userId: userId,
-            userPassword: userPassword,
+            userId: userIdInput,
+            userPassword: userPasswordInput,
         })
         .then(response => {
             if(response.data) {
+                updateUserId(userIdInput);
 
-                // updateUserId(response.data.userId);
-
-                // key:value 형태를 갖는다.
-                sessionStorage.setItem("userId", inputUserInfoForSignIn.userId);
-                sessionStorage.setItem("userPassword", inputUserInfoForSignIn.userPassword);
-
-                // Board 컴포넌트로부터 받아온 state의 값으로 세션에 저장된 id, pwd를 넣어준다.
-                updateUserId(sessionStorage.getItem("userId"));
-                updateUserPassword(sessionStorage.getItem("userPassword"));
+                sessionStorage.setItem("userId", userIdInput);
+                sessionStorage.setItem("userPassword", userPasswordInput);
 
                 alert('로그인 되었습니다.');
                 closeDialog();
@@ -84,8 +76,7 @@ const SignInDialog = () => {
                         <Form.Control type="text"
                             placeholder="아이디를 입력해주세요." autoFocus
                             onChange={(e) => {
-                                // updateUserId(e.target.value)
-                                setInputUserInfoForSignIn({ ...inputUserInfoForSignIn, userId: e.target.value });
+                                setUserIdInput(e.target.value);
                             }}
                         /><br></br>
         
@@ -93,8 +84,7 @@ const SignInDialog = () => {
                         <Form.Control type="password"
                             placeholder="비밀번호를 입력해주세요."
                             onChange={(e) => {
-                                // updateUserPassword(e.target.value)
-                                setInputUserInfoForSignIn({ ...inputUserInfoForSignIn, userPassword: e.target.value });
+                                setUserPasswordInput(e.target.value);
                             }}
                         /><br></br>
                     </Modal.Body>
