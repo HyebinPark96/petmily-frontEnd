@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import './dist/App.css';
 import Board from './board/Board';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
