@@ -7,6 +7,7 @@ import Topbar from './topbar';
 import NotFound from './notFound';
 import IntroducePage from './introduce/introducePage';
 import ReservationPage from './reservation/reservationPage';
+import Main from './main';
 
 function App() {
        
@@ -15,7 +16,7 @@ function App() {
       <BrowserRouter>
 			<Topbar />
 			<Routes>
-				<Route path="/" element={<main />}></Route>
+				<Route path="/" element={<Main />}></Route>
 				<Route path="/api/introduce" element={<IntroducePage />}></Route>
 				<Route path="/api/reservation" element={<ReservationPage />}></Route>
 				<Route path="/api/board" element={<Board />}></Route>
