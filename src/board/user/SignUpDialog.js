@@ -1,8 +1,5 @@
-import React, {useEffect, useState} from 'react';
-/* import Header from './Header'; */
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../style/Board.css';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Form } from "react-bootstrap";
@@ -21,31 +18,31 @@ const SignUpDialog = () => {
     }
 
     // 회원가입시 사용되는 state
-    const [userId, setUserId] = useState("");
-    const [userPassword, setUserPassword] = useState("");
-    const [userName, setUserName] = useState("");
-    const [userRrn, setUserRrn] = useState("");
+    const [userIdInput, setUserIdInput] = useState("");
+    const [userPasswordInput, setUserPasswordInput] = useState("");
+    const [userNameInput, setUserNameInput] = useState("");
+    const [userRrnInput, setUserRrnInput] = useState("");
     
     // 주민번호 * 처리 구현 예정
     useEffect(() => {
-        setUserRrn(userRrn.toString().replace(userRrn, userRrn.toString().replace(/(-?)([1-4]{1})([0-9]{6})\b/gi,"$1$2******")));
-    }, [userRrn])
+        setUserRrnInput(userRrnInput.toString().replace(userRrnInput, userRrnInput.toString().replace(/(-?)([1-4]{1})([0-9]{6})\b/gi,"$1$2******")));
+    }, [userRrnInput])
 
     // 회원가입 로직 구현
     const insertUser = () => {
         // 주민번호 체크
         const ruleForRRN = /^(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))-[1-8][0-9]{6}$/;
 
-        if(!ruleForRRN.test(userRrn)) {
+        if(!ruleForRRN.test(userRrnInput)) {
             alert("주민등록번호를 형식에 맞게 입력하세요.");
             return false;
         }
         
         axios.post('/user/signUp', {
-            userId: userId,
-            userPassword: userPassword,
-            userName: userName,
-            userRrn: userRrn
+            userId: userIdInput,
+            userPassword: userPasswordInput,
+            userName: userNameInput,
+            userRrn: userRrnInput
         })
         .then(response => {
             if(response.data) {
@@ -73,7 +70,7 @@ const SignUpDialog = () => {
                         <Form.Control type="text"
                             placeholder="아이디를 입력해주세요." autoFocus
                             onChange={(e) => {
-                                setUserId(e.target.value);
+                                setUserIdInput(e.target.value);
                             }}
                         /><br></br>
         
@@ -81,22 +78,22 @@ const SignUpDialog = () => {
                         <Form.Control type="password"
                             placeholder="비밀번호를 입력해주세요."
                             onChange={(e) => {
-                                setUserPassword(e.target.value);
+                                setUserPasswordInput(e.target.value);
                             }}
                         /><br></br>
                         
                         이름
                         <Form.Control type="text" placeholder="이름을 입력해주세요."
                             onChange={(e) => {
-                                setUserName(e.target.value);
+                                setUserNameInput(e.target.value);
                             }}
                         /><br></br>
 
                         주민등록번호 (Ex. 900101-1234567)
-                        <Form.Control type="text" placeholder="주민등록번호를 입력해주세요." value={userRrn/* .toString().replace(userRrn, userRrn.toString().replace(/(-?)([1-4]{1})([0-9]{6})\b/gi,"$1$2******"))*/} 
+                        <Form.Control type="text" placeholder="주민등록번호를 입력해주세요." value={userRrnInput/* .toString().replace(userRrn, userRrn.toString().replace(/(-?)([1-4]{1})([0-9]{6})\b/gi,"$1$2******"))*/} 
                             // !! 뒷자리 * 처리 아직 미완성
                             onChange={(e) => {
-                                setUserRrn(e.target.value);
+                                setUserRrnInput(e.target.value);
                                 
                                 // const masking = e.target.value.toString().replace(e.target.value, e.target.value.toString().replace(/(-?)([1-4]{1})([0-9]{6})\b/gi,"$1$2******"));
                                 // setMaskingUserRrn(masking);

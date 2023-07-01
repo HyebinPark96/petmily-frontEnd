@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../style/Board.css';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { Form } from "react-bootstrap";
 import useStore from '../../zustand/store';
+
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
 
 const SignInDialog = () => {
 
@@ -14,52 +16,56 @@ const SignInDialog = () => {
     // 2. sessionStorage : 브라우저를 닫자마자 저장소가 지워진다. (반휘발성)  
     let sessionStorage = window.sessionStorage;
 
+    const [userIdInput, setUserIdInput] = useState('');
+    const [userPasswordInput, setUserPasswordInput] = useState('');
+
     // 상태를 꺼낸다.
     const userId = useStore(state => state.userId);
-    const userPassword = useStore(state => state.userPassword);
     const open = useStore(state => state.open);
-
+    
     // 스토어에서 상태를 변경하는 함수를 꺼낸다.
+    const updateUserId = useStore(state => state.updateUserId);
     const updateOpen = useStore(state => state.updateOpen);
     
     useEffect(() => {
-        console.log('signInId : ' + userId);
+        
     }, [userId])
-
-    // 스토어에서 상태를 변경하는 함수를 꺼낸다.
-    const updateUserId = useStore(state => state.updateUserId);
-    const updateUserPassword = useStore(state => state.updateUserPassword);
-
-    const [inputUserInfoForSignIn, setInputUserInfoForSignIn] = useState({ userId: '', userPassword: '' }); 
 
     const closeDialog = () => {
         updateOpen(false);
     }
 
-    // 로그인 로직 구현
+    const handleClickOpen = () => {
+        updateOpen(true);
+    };
+  
+    const handleClose = () => {
+        updateOpen(false);
+    };
+
+
+    const StyledInput = {
+        border: '1px solid blue',
+        borderRadius: '8px',
+    }
+      
     const signIn = () => {
-        // 공백 조건
-        // if(userId === '' || userPassword === '') {
-        //     alert('공백을 제외하고 입력해주세요.');
-        //     return false;
-        // }
+        console.log('userIdInput : ' + userIdInput)
+        if(userIdInput === '' || userPasswordInput === '') {
+            alert('공백을 제외하고 입력해주세요.');
+            return false;
+        }
 
         axios.post('/user/signIn', {
-            userId: userId,
-            userPassword: userPassword,
+            userId: userIdInput,
+            userPassword: userPasswordInput,
         })
         .then(response => {
             if(response.data) {
+                updateUserId(userIdInput);
 
-                // updateUserId(response.data.userId);
-
-                // key:value 형태를 갖는다.
-                sessionStorage.setItem("userId", inputUserInfoForSignIn.userId);
-                sessionStorage.setItem("userPassword", inputUserInfoForSignIn.userPassword);
-
-                // Board 컴포넌트로부터 받아온 state의 값으로 세션에 저장된 id, pwd를 넣어준다.
-                updateUserId(sessionStorage.getItem("userId"));
-                updateUserPassword(sessionStorage.getItem("userPassword"));
+                sessionStorage.setItem("userId", userIdInput);
+                sessionStorage.setItem("userPassword", userPasswordInput);
 
                 alert('로그인 되었습니다.');
                 closeDialog();
@@ -73,45 +79,56 @@ const SignInDialog = () => {
     }
     
     return (
-            <div>
-                <Modal show={open} onHide={closeDialog}> 
-                    <Modal.Header closeButton onClick={closeDialog}>
-                        <Modal.Title>로그인</Modal.Title>
-                    </Modal.Header>
-        
-                    <Modal.Body>
-                        아이디
-                        <Form.Control type="text"
-                            placeholder="아이디를 입력해주세요." autoFocus
+        <div>
+            <Button variant="outlined" onClick={handleClickOpen}>
+                Open form dialog
+            </Button>
+            <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
+                <DialogTitle>계정 로그인</DialogTitle>
+            
+                <DialogContent>
+                    <div>
+                        <TextField
+                            autoFocus
+                            id="outlined-required"
+                            placeholder='아이디를 입력해주세요.'
+                            type="id"
+                            style={StyledInput}
+                            value={userIdInput || ''}
                             onChange={(e) => {
-                                // updateUserId(e.target.value)
-                                setInputUserInfoForSignIn({ ...inputUserInfoForSignIn, userId: e.target.value });
+                                setUserIdInput(e.target.value);
                             }}
-                        /><br></br>
-        
-                        비밀번호
-                        <Form.Control type="password"
-                            placeholder="비밀번호를 입력해주세요."
+                            fullWidth
+                        />
+                    </div>
+                    <div>
+                        <TextField
+                            id="outlined-required"
+                            placeholder='비밀번호를 입력해주세요.'
+                            type="password"
+                            style={StyledInput}
+                            value={userPasswordInput || ''}
                             onChange={(e) => {
-                                // updateUserPassword(e.target.value)
-                                setInputUserInfoForSignIn({ ...inputUserInfoForSignIn, userPassword: e.target.value });
+                                setUserPasswordInput(e.target.value);
                             }}
-                        /><br></br>
-                    </Modal.Body>
-        
-                    <Modal.Footer>
-                        <Button className="cancleBtn" onClick={closeDialog}>
-                            취소
-                        </Button>
-                        <Button onClick={() => {
-                            signIn();
-                        }}>
-                            로그인
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-            </div>
-    ) 
+                            fullWidth
+                        />
+                    </div>
+                </DialogContent>
+
+                <div style={{ display: 'flex', justifyContent: 'center', margin: '0 0 20px 0' }}>
+                    <Button 
+                        variant="contained" 
+                        style={{ width: '550.4px', height: '56px' }}
+                        onClick={signIn}
+                    >
+                        로그인
+                    </Button>
+                </div>
+
+            </Dialog>
+        </div>
+    )
 }   
 
 export default SignInDialog;
