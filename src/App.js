@@ -1,14 +1,13 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import './dist/App.css';
 import Board from './board/Board';
-
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Topbar from './topbar';
 import NotFound from './notFound';
-import IntroducePage from './introduce/introducePage';
-import ReservationPage from './reservation/reservationPage';
 import Main from './main';
+import MissingAnimalPage from './animal/missing/missingAnimalPage';
+import RescueAnimalPage from './animal/rescue/rescueAnimalPage';
 
 function App() {
        
@@ -18,8 +17,8 @@ function App() {
 			<Topbar />
 			<Routes>
 				<Route path="/" element={<Main />}></Route>
-				<Route path="/api/introduce" element={<IntroducePage />}></Route>
-				<Route path="/api/reservation" element={<ReservationPage />}></Route>
+				<Route path="/api/animal/missing/list" element={<MissingAnimalPage />}></Route>
+				<Route path="/api/animal/rescue/list" element={<RescueAnimalPage />}></Route>
 				<Route path="/api/board" element={<Board />}></Route>
 				<Route path="*" element={<NotFound />}></Route>
 			</Routes>

@@ -6,8 +6,6 @@ import ReadDialog from './component/dialog/ReadDialog';
 import CheckPwdForDeleteDialog from './component/dialog/CheckPwdForDeleteDialog'
 import CheckPwdForUpdateDialog from './component/dialog/CheckPwdForUpdateDialog';
 import InsertDialog from './component/dialog/InsertDialog';
-import SignUpDialog from './user/SignUpDialog';
-import SignInDialog from './user/SignInDialog';
 
 import { Form } from 'react-bootstrap';
 

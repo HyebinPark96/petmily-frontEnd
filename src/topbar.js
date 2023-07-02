@@ -10,7 +10,8 @@ import useStore from './zustand/store';
 import SignUpDialog from './board/user/SignUpDialog';
 import SignInDialog from './board/user/SignInDialog';
 
-const pages = ['INTRODUCE ', 'RESERVATION', 'Q&A'];
+const pages = ['실종/보호동물', '보호소 구조동물', 'Q&A'];
+const url = ['/api/animal/missing/list', '/api/animal/rescue/list', '/api/board']
 const userDialogs = ['SIGNIN', 'SIGNUP']
 const settings = ['SETTINGS', 'LOGOUT'];
 
@@ -143,8 +144,8 @@ const Topbar = () => {
               LOGO
             </mui.Typography>
             <mui.Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {pages.map((page) => (
-                <Link to={page === 'Q&A' ? '/api/board' : (page === 'RESERVATION' ? '/api/reservation' : '/api/introduce')}>
+              {pages.map((page, i) => (
+                <Link to={url[i]}>
                   <mui.Button
                     key={page}
                     onClick={handleModalOpen}
@@ -179,7 +180,6 @@ const Topbar = () => {
                     horizontal: 'right',
                   }}
                   open={Boolean(anchorElUser)}
-/*                   onClose={handleCloseUserMenu} */
                 >
                   {settings.map((setting) => (
                     <mui.MenuItem key={setting} onClick={() => handleCloseUserMenu(setting)}>
