@@ -11,11 +11,7 @@ const SignUpDialog = () => {
     const open = useStore(state => state.open);
 
     // 스토어에서 상태를 변경하는 함수를 꺼낸다.
-    const updateOpen = useStore(state => state.updateOpen);
-
-    const closeDialog = () => {
-        updateOpen(false);
-    }
+    const closeDialog = useStore(state => state.closeDialog);
 
     // 회원가입시 사용되는 state
     const [userIdInput, setUserIdInput] = useState("");
