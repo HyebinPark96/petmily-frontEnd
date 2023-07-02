@@ -9,7 +9,8 @@ const useStore = create((set) => ({
     open: false,
     dialogName: '',
     openDialog: (dialogName) => set(() => ({ open: true, dialogName: dialogName })),
-    updateOpen: (open) => set(() => ({ open: open })),
+    closeDialog: () => set(() => ({ open: false })),
+    clearDialog: () => set(() => ({ open: false, dialogName: '' })),
 
 }));
 

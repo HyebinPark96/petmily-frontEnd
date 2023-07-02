@@ -12,8 +12,8 @@ import SignInDialog from './board/user/SignInDialog';
 
 const pages = ['실종/보호동물', '보호소 구조동물', 'Q&A'];
 const url = ['/api/animal/missing/list', '/api/animal/rescue/list', '/api/board']
-const userDialogs = ['SIGNIN', 'SIGNUP']
-const settings = ['SETTINGS', 'LOGOUT'];
+const userDialogs = ['로그인', '회원가입']
+const settings = ['마이페이지', '로그아웃'];
 
 const Topbar = () => {
   let sessionStorage = window.sessionStorage;
@@ -46,15 +46,11 @@ const Topbar = () => {
   };
 
   const handleModalOpen = (e) => {
-    if(e.target.value === 'SIGNIN') {
-      openDialog('SIGNIN');
-    } else {
-      openDialog('SIGNUP')
-    }
+    openDialog(e.target.value);
   };
 
   const handleCloseUserMenu = (value) => {
-    if(value === "LOGOUT") {
+    if(value === "로그아웃") {
       logout();
     }
   };
@@ -209,14 +205,14 @@ const Topbar = () => {
 
       {/* 회원가입 모달창 */}
       {
-        (dialogName === "SIGNUP" && open) 
+        (dialogName === "회원가입" && open) 
         &&
         <SignUpDialog />
       }
 
       {/* 로그인 모달창 */}
       {
-        (dialogName === "SIGNIN" && sessionStorage.getItem("savedUserId") === null && open)  
+        (dialogName === "로그인" && sessionStorage.getItem("savedUserId") === null && open)  
         &&
         <SignInDialog />
       }  

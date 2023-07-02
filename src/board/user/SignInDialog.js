@@ -25,31 +25,17 @@ const SignInDialog = () => {
     
     // 스토어에서 상태를 변경하는 함수를 꺼낸다.
     const updateUserId = useStore(state => state.updateUserId);
-    const updateOpen = useStore(state => state.updateOpen);
+    const closeDialog = useStore(state => state.closeDialog);
     
     useEffect(() => {
         
     }, [userId])
-
-    const closeDialog = () => {
-        updateOpen(false);
-    }
-
-    const handleClickOpen = () => {
-        updateOpen(true);
-    };
-  
-    const handleClose = () => {
-        updateOpen(false);
-    };
-
 
     const StyledInput = {
         borderRadius: '8px',
     }
       
     const signIn = () => {
-        console.log('userIdInput : ' + userIdInput)
         if(userIdInput === '' || userPasswordInput === '') {
             alert('공백을 제외하고 입력해주세요.');
             return false;
@@ -79,7 +65,7 @@ const SignInDialog = () => {
     
     return (
         <div>
-            <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
+            <Dialog open={open} onClose={closeDialog} maxWidth="sm" fullWidth>
                 <DialogTitle>계정 로그인</DialogTitle>
             
                 <DialogContent>
