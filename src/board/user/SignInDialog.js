@@ -45,7 +45,6 @@ const SignInDialog = () => {
 
 
     const StyledInput = {
-        border: '1px solid blue',
         borderRadius: '8px',
     }
       
@@ -80,16 +79,12 @@ const SignInDialog = () => {
     
     return (
         <div>
-            <Button variant="outlined" onClick={handleClickOpen}>
-                Open form dialog
-            </Button>
             <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
                 <DialogTitle>계정 로그인</DialogTitle>
             
                 <DialogContent>
                     <div>
                         <TextField
-                            autoFocus
                             id="outlined-required"
                             placeholder='아이디를 입력해주세요.'
                             type="id"
