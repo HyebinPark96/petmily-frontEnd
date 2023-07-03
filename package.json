@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:8080",
+  "homepage": "http://HyebinPark96.github.io/",
   "dependencies": {
     "@amcharts/amcharts4": "^4.10.22",
     "@emotion/react": "^11.10.5",
