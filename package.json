@@ -1,7 +1,6 @@
 {
   "name": "react-project",
   "version": "0.1.0",
-  "homepage": "http://HyebinPark96.github.io/petmily-frontEnd",
   "private": true,
   "proxy": "http://localhost:8080",
   "dependencies": {
