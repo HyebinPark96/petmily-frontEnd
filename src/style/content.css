@@ -1,0 +1,25 @@
+.cards-container {
+    display: flex;
+    margin: 20px auto;
+    width: 1200px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px; 
+}
+
+.card {
+    flex-basis: 250px; 
+    margin: 0 0 20px 0;
+}
+
+.card-media {
+    /* object-fit: contain; */
+}
+
+.card-content {
+    height: 100px;
+}
+
+.care-addr {
+    margin: 10px 0 0 0;
+}
