@@ -12,18 +12,16 @@ import RescueAnimalPage from './animal/rescue/rescueAnimalPage';
 function App() {
        
   return (
-    <>
-      <BrowserRouter>
-			<Topbar />
-			<Routes>
-				<Route path="/" element={<Main />}></Route>
-				<Route path="/api/animal/missing/list" element={<MissingAnimalPage />}></Route>
-				<Route path="/api/animal/rescue/list" element={<RescueAnimalPage />}></Route>
-				<Route path="/api/board" element={<Board />}></Route>
-				<Route path="*" element={<NotFound />}></Route>
-			</Routes>
-		</BrowserRouter>
-    </>
+    <BrowserRouter>
+		<Topbar />
+		<Routes>
+			<Route path="/" element={<Main />}></Route>
+			<Route path="/api/animal/missing/list" element={<MissingAnimalPage />}></Route>
+			<Route path="/api/animal/rescue/list" element={<RescueAnimalPage />}></Route>
+			<Route path="/api/board" element={<Board />}></Route>
+			<Route path="*" element={<NotFound />}></Route>
+		</Routes>
+	</BrowserRouter>
   )
 
 }
