@@ -12,9 +12,8 @@ const MissingAnimalPage = () => {
   const [missingAnimalList, setMissingAnimalList] = useState([]); 
 
   const getMissingAnimalList = () => {
-    axios.get('http://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?pageNo=1&numOfRows=20&_type=json&serviceKey=' + process.env.REACT_APP_API_KEY)
+    axios.get('/api/animal/selectMissingAnimalList')
     .then((result) => {
-      // console.log(result.data.response.body.items.item)
       setMissingAnimalList(result.data.response.body.items.item);
     })
     .catch((err) => {
