@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/react-springboot-board-frontEnd/static/css/main.cd2d41eb.css",
-    "main.js": "/react-springboot-board-frontEnd/static/js/main.5e63f49d.js",
-    "static/js/498.2fd3091a.chunk.js": "/react-springboot-board-frontEnd/static/js/498.2fd3091a.chunk.js",
-    "static/js/703.e00bc6ce.chunk.js": "/react-springboot-board-frontEnd/static/js/703.e00bc6ce.chunk.js",
-    "static/js/13.a0055615.chunk.js": "/react-springboot-board-frontEnd/static/js/13.a0055615.chunk.js",
-    "static/media/NanumGothic-Regular.ttf": "/react-springboot-board-frontEnd/static/media/NanumGothic-Regular.6c84540de7730f833d6c.ttf",
-    "static/media/NanumMyeongjo-Regular.ttf": "/react-springboot-board-frontEnd/static/media/NanumMyeongjo-Regular.01893c39cd1a403ef0a5.ttf",
-    "static/media/example.jpg": "/react-springboot-board-frontEnd/static/media/example.28ae90dcaa4965bb5540.jpg",
-    "index.html": "/react-springboot-board-frontEnd/index.html",
-    "main.cd2d41eb.css.map": "/react-springboot-board-frontEnd/static/css/main.cd2d41eb.css.map",
-    "main.5e63f49d.js.map": "/react-springboot-board-frontEnd/static/js/main.5e63f49d.js.map",
-    "498.2fd3091a.chunk.js.map": "/react-springboot-board-frontEnd/static/js/498.2fd3091a.chunk.js.map",
-    "703.e00bc6ce.chunk.js.map": "/react-springboot-board-frontEnd/static/js/703.e00bc6ce.chunk.js.map",
-    "13.a0055615.chunk.js.map": "/react-springboot-board-frontEnd/static/js/13.a0055615.chunk.js.map"
+    "main.css": "/petmily-frontEnd/static/css/main.305be267.css",
+    "main.js": "/petmily-frontEnd/static/js/main.a9a1a197.js",
+    "static/js/498.2fd3091a.chunk.js": "/petmily-frontEnd/static/js/498.2fd3091a.chunk.js",
+    "static/js/703.e00bc6ce.chunk.js": "/petmily-frontEnd/static/js/703.e00bc6ce.chunk.js",
+    "static/js/13.a0055615.chunk.js": "/petmily-frontEnd/static/js/13.a0055615.chunk.js",
+    "static/media/NanumGothic-Regular.ttf": "/petmily-frontEnd/static/media/NanumGothic-Regular.6c84540de7730f833d6c.ttf",
+    "static/media/NanumMyeongjo-Regular.ttf": "/petmily-frontEnd/static/media/NanumMyeongjo-Regular.01893c39cd1a403ef0a5.ttf",
+    "static/media/example.jpg": "/petmily-frontEnd/static/media/example.28ae90dcaa4965bb5540.jpg",
+    "index.html": "/petmily-frontEnd/index.html",
+    "main.305be267.css.map": "/petmily-frontEnd/static/css/main.305be267.css.map",
+    "main.a9a1a197.js.map": "/petmily-frontEnd/static/js/main.a9a1a197.js.map",
+    "498.2fd3091a.chunk.js.map": "/petmily-frontEnd/static/js/498.2fd3091a.chunk.js.map",
+    "703.e00bc6ce.chunk.js.map": "/petmily-frontEnd/static/js/703.e00bc6ce.chunk.js.map",
+    "13.a0055615.chunk.js.map": "/petmily-frontEnd/static/js/13.a0055615.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.cd2d41eb.css",
-    "static/js/main.5e63f49d.js"
+    "static/css/main.305be267.css",
+    "static/js/main.a9a1a197.js"
   ]
 }
