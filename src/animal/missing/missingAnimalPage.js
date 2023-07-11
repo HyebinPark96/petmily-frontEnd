@@ -84,14 +84,12 @@ const MissingAnimalPage = () => {
               <Typography gutterBottom variant="h5" component="div">
                 {missingAnimal?.kindCd} 
               </Typography>
-              <Typography variant="div" component="div">
-                공고기간: {missingAnimal?.noticeSdt} ~ {missingAnimalList?.noticeEdt}
+              <Typography className="notice-date" variant="div" component="div">
+                📢 공고기간: {missingAnimal?.noticeSdt} ~ {missingAnimal?.noticeEdt}
               </Typography>
-              <div className="care-addr">
-                <Typography variant="body2" color="text.secondary">
-                  보호장소: {missingAnimalList?.careAddr}
-                </Typography>
-              </div>
+              <Typography className="happen-place" variant="div" component="div" /* variant="body2" color="text.secondary" */>
+                💡 발견장소: {missingAnimal?.happenPlace}
+              </Typography>
             </CardContent>
           </CardActionArea>
           {/* <CardActions>

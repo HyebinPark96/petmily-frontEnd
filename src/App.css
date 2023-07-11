@@ -41,3 +41,20 @@
     transform: rotate(360deg);
   }
 }
+
+/*폰트*/
+@font-face {
+  font-family: "Nanum Gothic";
+  font-weight: bold;
+  src: url("./style/assets/fonts/NanumGothic-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Nanum Myeongjo";
+  font-weight: bold;
+  src: url("./style/assets/fonts/NanumMyeongjo-Regular.ttf");
+}
+
+* {
+  font-family: "Nanum Gothic" !important;
+}
