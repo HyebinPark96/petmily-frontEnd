@@ -9,15 +9,15 @@
 
 .card {
     flex-basis: 250px; 
-    margin: 0 0 20px 0;
 }
 
 .card-media {
-    /* object-fit: contain; */
+    height: 200px; /* 사진 높이 */ 
+    object-fit: contain !important;
 }
 
 .card-content {
-    height: 100px;
+    height: 250px; /* 카드 전체 길이 */
 }
 
 .care-addr {
