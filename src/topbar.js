@@ -3,6 +3,9 @@ import React, { useEffect } from 'react'
 import * as mui from '@mui/material'; 
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
+import logo1 from './style/image/logo/logo1.png';
+import logo2 from './style/image/logo/logo2.png';
+import logo3 from './style/image/logo/logo3.png';
 
 import { Link } from 'react-router-dom';
 
@@ -62,12 +65,13 @@ const Topbar = () => {
 
   return (
     <>
-      <mui.AppBar position="static">
+      <mui.AppBar position="static" className="app-bar">
         <mui.Container maxWidth="xl">
           <mui.Toolbar disableGutters>
-            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+            <img src={logo1} className="logo" />
             <mui.Typography
-              variant="h6"
+              className="logo-text"
+              variant="h4"
               noWrap
               component="a"
               href="/"
@@ -76,12 +80,12 @@ const Topbar = () => {
                 display: { xs: 'none', md: 'flex' },
                 fontFamily: 'monospace',
                 fontWeight: 700,
-                letterSpacing: '.3rem',
+                letterSpacing: '.1rem',
                 color: 'inherit',
                 textDecoration: 'none',
               }}
             >
-              LOGO
+              PETMILY
             </mui.Typography>
 
             <mui.Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -120,32 +124,15 @@ const Topbar = () => {
                 ))}
               </mui.Menu>
             </mui.Box>
-            <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-            <mui.Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href=""
-              sx={{
-                mr: 2,
-                display: { xs: 'flex', md: 'none' },
-                flexGrow: 1,
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              LOGO
-            </mui.Typography>
+
             <mui.Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page, i) => (
                 <Link to={url[i]}>
                   <mui.Button
                     key={page}
                     onClick={handleModalOpen}
-                    sx={{ my: 2, color: 'white', display: 'block' }}
+                    sx={{ my: 2, color: 'white'}}
+                    className="page-button"
                   >
                     {page}
                   </mui.Button>
@@ -179,7 +166,7 @@ const Topbar = () => {
                 >
                   {settings.map((setting) => (
                     <mui.MenuItem key={setting} onClick={() => handleCloseUserMenu(setting)}>
-                      <mui.Typography textAlign="center">{setting}</mui.Typography>
+                      <mui.Typography className="setting-text" textAlign="center">{setting}</mui.Typography>
                     </mui.MenuItem>
                   ))}
                 </mui.Menu>
@@ -192,6 +179,7 @@ const Topbar = () => {
                       value={userDialog}
                       onClick={handleModalOpen}
                       sx={{ my: 2, color: 'white', display: 'block' }}
+                      className="setting-text"
                     >
                       {userDialog}
                     </mui.Button>

@@ -1,3 +1,26 @@
+/* 탑바 */
+.app-bar {
+    background-color: #f0c040 !important;
+    height: 120px !important;
+}
+
+.logo {
+    width: 100px;
+}
+
+.logo-text:hover {
+    color: #ffffff !important;
+}
+
+.page-button {
+    font-size: 19px !important;
+}
+
+.setting-text {
+    font-size: 18px !important;
+}
+
+/* 동물 리스트 */
 .cards-container {
     display: flex;
     margin: 20px auto;
