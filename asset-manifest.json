@@ -1,27 +1,22 @@
 {
   "files": {
-    "main.css": "/petmily-frontEnd/static/css/main.ef5fb5ab.css",
-    "main.js": "/petmily-frontEnd/static/js/main.4edb2960.js",
-    "static/js/498.2fd3091a.chunk.js": "/petmily-frontEnd/static/js/498.2fd3091a.chunk.js",
-    "static/js/703.e00bc6ce.chunk.js": "/petmily-frontEnd/static/js/703.e00bc6ce.chunk.js",
-    "static/js/826.678faf29.chunk.js": "/petmily-frontEnd/static/js/826.678faf29.chunk.js",
-    "pdfmake.js": "/petmily-frontEnd/static/js/pdfmake.35a9d2af.chunk.js",
-    "canvg.js": "/petmily-frontEnd/static/js/canvg.da23ee69.chunk.js",
-    "xlsx.js": "/petmily-frontEnd/static/js/xlsx.8ee2dc00.chunk.js",
-    "static/js/707.cfeb2a36.chunk.js": "/petmily-frontEnd/static/js/707.cfeb2a36.chunk.js",
-    "index.html": "/petmily-frontEnd/index.html",
-    "main.ef5fb5ab.css.map": "/petmily-frontEnd/static/css/main.ef5fb5ab.css.map",
-    "main.4edb2960.js.map": "/petmily-frontEnd/static/js/main.4edb2960.js.map",
-    "498.2fd3091a.chunk.js.map": "/petmily-frontEnd/static/js/498.2fd3091a.chunk.js.map",
-    "703.e00bc6ce.chunk.js.map": "/petmily-frontEnd/static/js/703.e00bc6ce.chunk.js.map",
-    "826.678faf29.chunk.js.map": "/petmily-frontEnd/static/js/826.678faf29.chunk.js.map",
-    "pdfmake.35a9d2af.chunk.js.map": "/petmily-frontEnd/static/js/pdfmake.35a9d2af.chunk.js.map",
-    "canvg.da23ee69.chunk.js.map": "/petmily-frontEnd/static/js/canvg.da23ee69.chunk.js.map",
-    "xlsx.8ee2dc00.chunk.js.map": "/petmily-frontEnd/static/js/xlsx.8ee2dc00.chunk.js.map",
-    "707.cfeb2a36.chunk.js.map": "/petmily-frontEnd/static/js/707.cfeb2a36.chunk.js.map"
+    "main.css": "/react-springboot-board-frontEnd/static/css/main.cd2d41eb.css",
+    "main.js": "/react-springboot-board-frontEnd/static/js/main.5e63f49d.js",
+    "static/js/498.2fd3091a.chunk.js": "/react-springboot-board-frontEnd/static/js/498.2fd3091a.chunk.js",
+    "static/js/703.e00bc6ce.chunk.js": "/react-springboot-board-frontEnd/static/js/703.e00bc6ce.chunk.js",
+    "static/js/13.a0055615.chunk.js": "/react-springboot-board-frontEnd/static/js/13.a0055615.chunk.js",
+    "static/media/NanumGothic-Regular.ttf": "/react-springboot-board-frontEnd/static/media/NanumGothic-Regular.6c84540de7730f833d6c.ttf",
+    "static/media/NanumMyeongjo-Regular.ttf": "/react-springboot-board-frontEnd/static/media/NanumMyeongjo-Regular.01893c39cd1a403ef0a5.ttf",
+    "static/media/example.jpg": "/react-springboot-board-frontEnd/static/media/example.28ae90dcaa4965bb5540.jpg",
+    "index.html": "/react-springboot-board-frontEnd/index.html",
+    "main.cd2d41eb.css.map": "/react-springboot-board-frontEnd/static/css/main.cd2d41eb.css.map",
+    "main.5e63f49d.js.map": "/react-springboot-board-frontEnd/static/js/main.5e63f49d.js.map",
+    "498.2fd3091a.chunk.js.map": "/react-springboot-board-frontEnd/static/js/498.2fd3091a.chunk.js.map",
+    "703.e00bc6ce.chunk.js.map": "/react-springboot-board-frontEnd/static/js/703.e00bc6ce.chunk.js.map",
+    "13.a0055615.chunk.js.map": "/react-springboot-board-frontEnd/static/js/13.a0055615.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ef5fb5ab.css",
-    "static/js/main.4edb2960.js"
+    "static/css/main.cd2d41eb.css",
+    "static/js/main.5e63f49d.js"
   ]
 }
