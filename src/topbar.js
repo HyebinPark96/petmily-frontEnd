@@ -68,7 +68,9 @@ const Topbar = () => {
       <mui.AppBar position="static" className="app-bar">
         <mui.Container maxWidth="xl">
           <mui.Toolbar disableGutters>
-            <img src={logo1} className="logo" />
+            <div className="child-logo">
+              <img src={logo1} className="logo" alt='logo'/>
+
             <mui.Typography
               className="logo-text"
               variant="h4"
@@ -87,7 +89,8 @@ const Topbar = () => {
             >
               PETMILY
             </mui.Typography>
-
+            </div>
+            
             <mui.Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
               <mui.IconButton
                 size="large"
@@ -125,24 +128,27 @@ const Topbar = () => {
               </mui.Menu>
             </mui.Box>
 
-            <mui.Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {pages.map((page, i) => (
-                <Link to={url[i]}>
-                  <mui.Button
-                    key={page}
-                    onClick={handleModalOpen}
-                    sx={{ my: 2, color: 'white'}}
-                    className="page-button"
-                  >
-                    {page}
-                  </mui.Button>
-                </Link>
-              ))}
-            </mui.Box>
+            <div className='child-pages'>
+              <mui.Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                {pages.map((page, i) => (
+                  <Link to={url[i]}>
+                    <mui.Button
+                      key={page}
+                      onClick={handleModalOpen}
+                      sx={{ my: 2, color: 'white'}}
+                      className="page-button"
+                    >
+                      {page}
+                    </mui.Button>
+                  </Link>
+                ))}
+              </mui.Box>
+            </div>
 
             {
               userId !== ''
               ?
+              <div className='child-settings'>
               <mui.Box sx={{ flexGrow: 0 }}>
                 <mui.Tooltip title="Open settings">
                   <mui.IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -171,20 +177,23 @@ const Topbar = () => {
                   ))}
                 </mui.Menu>
               </mui.Box>
+              </div>
               :
-              <mui.Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
-                {userDialogs.map((userDialog) => (
-                    <mui.Button
-                      key={userDialog}
-                      value={userDialog}
-                      onClick={handleModalOpen}
-                      sx={{ my: 2, color: 'white', display: 'block' }}
-                      className="setting-text"
-                    >
-                      {userDialog}
-                    </mui.Button>
-                ))}
-              </mui.Box>
+              <div className='child-settings'>
+                <mui.Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
+                  {userDialogs.map((userDialog) => (
+                      <mui.Button
+                        key={userDialog}
+                        value={userDialog}
+                        onClick={handleModalOpen}
+                        sx={{ my: 2, color: 'white', display: 'block' }}
+                        className="setting-text"
+                      >
+                        {userDialog}
+                      </mui.Button>
+                  ))}
+                </mui.Box>
+              </div>
             }
          
           </mui.Toolbar>
