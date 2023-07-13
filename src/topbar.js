@@ -68,28 +68,30 @@ const Topbar = () => {
       <mui.AppBar position="static" className="app-bar">
         <mui.Container maxWidth="xl">
           <mui.Toolbar disableGutters>
-            <div className="child-logo">
-              <img src={logo1} className="logo" alt='logo'/>
-
-            <mui.Typography
-              className="logo-text"
-              variant="h4"
-              noWrap
-              component="a"
-              href="/"
-              sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.1rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              PETMILY
-            </mui.Typography>
-            </div>
+  
+            <Link to={'/'} style={{color: 'white'}}>
+              <div className="child-logo">
+                <img src={logo1} className="logo" alt='logo' />
+                <mui.Typography
+                  className="logo-text"
+                  variant="h4"
+                  noWrap
+                  component="a"
+                  href="/"
+                  sx={{
+                    mr: 2,
+                    display: { xs: 'none', md: 'flex' },
+                    fontFamily: 'monospace',
+                    fontWeight: 700,
+                    letterSpacing: '.1rem',
+                    color: 'inherit',
+                    textDecoration: 'none',
+                  }}
+                >
+                  PETMILY
+                </mui.Typography>
+              </div>
+            </Link>
             
             <mui.Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
               <mui.IconButton
@@ -131,7 +133,7 @@ const Topbar = () => {
             <div className='child-pages'>
               <mui.Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                 {pages.map((page, idx) => (
-                  <Link to={url[idx]} key={idx}>
+                  <Link to={url[idx]} key={idx} className="link-pages">
                     <mui.Button
                       key={page}
                       onClick={handleModalOpen}
