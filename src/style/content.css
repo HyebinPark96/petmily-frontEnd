@@ -1,11 +1,31 @@
 /* 탑바 */
 .app-bar {
     background-color: #f0c040 !important;
-    height: 120px !important;
+    height: 160px !important;
+    position: relative !important; 
+}
+
+.child-logo { 
+    position: absolute !important;
+    top: 18% !important;
+}
+
+.child-pages {
+    position: absolute !important;
+    top: 50% !important;
+    left: 10%;
+}
+
+.child-settings {
+    position: absolute !important;
+    top: 50% !important;
+    right: 0% !important;
+    transform: translate(0%, -50%) !important;
 }
 
 .logo {
     width: 100px;
+    height: 100px;
 }
 
 .logo-text:hover {
@@ -13,11 +33,13 @@
 }
 
 .page-button {
-    font-size: 19px !important;
+    font-size: 21px !important;
+    /* border: 1px solid #ffffff !important;
+    border-radius: 50%; */
 }
 
 .setting-text {
-    font-size: 18px !important;
+    font-size: 20px !important;
 }
 
 /* 동물 리스트 */
