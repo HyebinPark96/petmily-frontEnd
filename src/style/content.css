@@ -7,13 +7,14 @@
 
 .child-logo { 
     position: absolute !important;
-    top: 18% !important;
+    top: 20% !important;
+    left: 1%;
 }
 
 .child-pages {
     position: absolute !important;
     top: 50% !important;
-    left: 10%;
+    left: 11%;
 }
 
 .child-settings {
@@ -28,8 +29,17 @@
     height: 100px;
 }
 
+.logo-text {
+    position: absolute;
+    left: -13%;
+}
+
 .logo-text:hover {
     color: #ffffff !important;
+}
+
+.link-pages {
+    margin: 0 5px;
 }
 
 .page-button {
