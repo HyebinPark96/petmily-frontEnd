@@ -120,8 +120,8 @@ const Topbar = () => {
                   display: { xs: 'block', md: 'none' },
                 }}
               >
-                {pages.map((page) => (
-                  <mui.MenuItem key={page} onClick={handleModalOpen}>
+                {pages.map((page, idx) => (
+                  <mui.MenuItem key={idx} onClick={handleModalOpen}>
                     <mui.Typography textAlign="center">{page}</mui.Typography>
                   </mui.MenuItem>
                 ))}
@@ -130,8 +130,8 @@ const Topbar = () => {
 
             <div className='child-pages'>
               <mui.Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                {pages.map((page, i) => (
-                  <Link to={url[i]}>
+                {pages.map((page, idx) => (
+                  <Link to={url[idx]} key={idx}>
                     <mui.Button
                       key={page}
                       onClick={handleModalOpen}
@@ -170,8 +170,8 @@ const Topbar = () => {
                   }}
                   open={Boolean(anchorElUser)}
                 >
-                  {settings.map((setting) => (
-                    <mui.MenuItem key={setting} onClick={() => handleCloseUserMenu(setting)}>
+                  {settings.map((setting, idx) => (
+                    <mui.MenuItem key={idx} onClick={() => handleCloseUserMenu(setting)}>
                       <mui.Typography className="setting-text" textAlign="center">{setting}</mui.Typography>
                     </mui.MenuItem>
                   ))}
@@ -181,9 +181,9 @@ const Topbar = () => {
               :
               <div className='child-settings'>
                 <mui.Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
-                  {userDialogs.map((userDialog) => (
+                  {userDialogs.map((userDialog, idx) => (
                       <mui.Button
-                        key={userDialog}
+                        key={idx}
                         value={userDialog}
                         onClick={handleModalOpen}
                         sx={{ my: 2, color: 'white', display: 'block' }}
