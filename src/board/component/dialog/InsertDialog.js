@@ -42,32 +42,20 @@ const InsertDialog = ({open, sessionStorage, setOpen}) => {
         
         const formData = new FormData(); 
 
-        if(file !== undefined) { // 파일 업로드 했을 경우
-            formData.append("originFile", file); 
-
-            let postForInsert = { 
-                writer: sessionStorage.getItem("savedUserId") !== null ? sessionStorage.getItem("savedUserId") : writer,
-                subject: subject,
-                content: content,
-                password: password,
-                originFile: file.name 
-            }
-
-            formData.append("post", new Blob([JSON.stringify(postForInsert)], {type: "application/json"})); 
-        } else { // 파일 업로드 안했을 경우
-            let postForInsert = { 
-                writer: sessionStorage.getItem("savedUserId") !== null ? sessionStorage.getItem("savedUserId") : writer,
-                subject: subject,
-                content: content,
-                password: password 
-            }
-
-            formData.append("post", new Blob([JSON.stringify(postForInsert)], {type: "application/json"})); 
+        let postForInsert = { 
+            writer: sessionStorage.getItem("savedUserId") !== null ? sessionStorage.getItem("savedUserId") : writer,
+            subject: subject,
+            content: content,
+            password: password,
+            file: file !== undefined ? file : "",
+            originFile: file !== undefined ? file.name : "" 
         }
+
+        formData.append("board", new Blob([JSON.stringify(postForInsert)], {type: "application/json"})); 
 
         axios({ 
             method: 'post',
-            url: '/board/post',
+            url: '/api/board/question',
             data: formData,
             headers: {
                 'Content-Type': 'multipart/form-data'

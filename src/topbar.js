@@ -13,8 +13,8 @@ import useStore from './zustand/store';
 import SignUpDialog from './board/user/SignUpDialog';
 import SignInDialog from './board/user/SignInDialog';
 
-const pages = ['실종/보호동물', '보호소 구조동물', 'Q&A'];
-const url = ['/api/animal/missing/list', '/api/animal/rescue/list', '/api/board']
+const pages = ['실종/보호동물', 'Q&A'];
+const url = ['/api/animal/missing/list', '/api/board']
 const userDialogs = ['로그인', '회원가입']
 const settings = ['마이페이지', '로그아웃'];
 
