@@ -7,7 +7,6 @@ import Topbar from './topbar';
 import NotFound from './notFound';
 import Main from './main';
 import MissingAnimalPage from './animal/missing/missingAnimalPage';
-import RescueAnimalPage from './animal/rescue/rescueAnimalPage';
 
 function App() {
        
@@ -17,7 +16,6 @@ function App() {
 		<Routes>
 			<Route path="/" element={<Main />}></Route>
 			<Route path="/api/animal/missing/list" element={<MissingAnimalPage />}></Route>
-			<Route path="/api/animal/rescue/list" element={<RescueAnimalPage />}></Route>
 			<Route path="/api/board" element={<Board />}></Route>
 			<Route path="*" element={<NotFound />}></Route>
 		</Routes>

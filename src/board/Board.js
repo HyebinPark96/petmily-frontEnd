@@ -107,7 +107,7 @@ const Board = () => {
         setKeyword("");
         
         axios({
-            url: '/board',
+            url: '/api/board/list',
             method: 'POST',
             data: {
                 search_category: 'subject',
