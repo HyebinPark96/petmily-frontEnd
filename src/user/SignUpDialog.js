@@ -3,7 +3,7 @@ import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Form } from "react-bootstrap";
-import useStore from '../../zustand/store';
+import useStore from '../zustand/store';
 
 const SignUpDialog = () => {
 
