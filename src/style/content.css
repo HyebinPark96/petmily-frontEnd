@@ -1,7 +1,7 @@
 /* 탑바 */
 .app-bar {
     background-color: #f0c040 !important;
-    height: 160px !important;
+    height: 100px !important;
     position: relative !important; 
 }
 
@@ -14,7 +14,7 @@
 .child-pages {
     position: absolute !important;
     top: 50% !important;
-    left: 11%;
+    left: 7%;
 }
 
 .child-settings {
@@ -25,13 +25,13 @@
 }
 
 .logo {
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
 }
 
 .logo-text {
     position: absolute;
-    left: -13%;
+    font-size: 15px !important;
 }
 
 .logo-text:hover {
@@ -43,13 +43,14 @@
 }
 
 .page-button {
-    font-size: 21px !important;
-    /* border: 1px solid #ffffff !important;
-    border-radius: 50%; */
+    font-size: 19px !important;
+    margin: 5px 20px 5px 0px;
+    color: #ffffff;
 }
 
 .setting-text {
-    font-size: 20px !important;
+    color: #ffffff !important;
+    text-align: center;
 }
 
 /* 동물 리스트 */
@@ -81,4 +82,21 @@
 
 .happen-place {
     font-size: 15px;
+}
+
+.MuiInputBase-input {
+    height: 15px !important;
+    width: 300px !important;
+}
+
+.modal-btns {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.lgn-btn {
+    width: 100%; 
+    height: 45px;
 }

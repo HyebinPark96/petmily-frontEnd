@@ -54,7 +54,7 @@ const MissingAnimalPage = () => {
     const clientHeight = document.documentElement.clientHeight;
 
     // 페이지 끝에 도달했다면 다음 데이터 로드
-    if (scrollTop + clientHeight >= scrollHeight && fetching === false) {
+    if (scrollTop + clientHeight >= scrollHeight - 10 && fetching === false) {
       getMissingAnimalList();
     }
   };

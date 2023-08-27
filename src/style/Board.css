@@ -130,12 +130,12 @@
 }
 
 .search_category {
-  width: 100px;
+  width: 100px !important;
 }
 
 .search_keyword {
-  display:inline-block; 
-  width: 500px;
+  display:inline-block !important; 
+  width: 500px !important;
 }
 
 .columnForSortForm {
@@ -198,4 +198,10 @@ ul.pagination li a.active {
   width: 48px;
   height: 30px;
   color: #337ab7;
+}
+
+.searchBtn {
+  color: #ffffff !important;
+  background-color: #1976d2 !important;
+  height: 35px;
 }
