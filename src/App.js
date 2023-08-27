@@ -18,15 +18,15 @@ import MissingAnimalPage from "./animal/missing/missingAnimalPage";
 
 function App() {
     return (
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Topbar />
         <Routes>
           <Route path="/" element={<Main />}></Route>
           <Route
-            path="/petmily-frontEnd/api/animal/missing/list"
+            path="/api/animal/missing/list"
             element={<MissingAnimalPage />}
           ></Route>
-          <Route path="/petmily-frontEnd/api/board" element={<Board />}></Route>
+          <Route path="/api/board" element={<Board />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </BrowserRouter>

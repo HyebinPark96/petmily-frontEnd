@@ -14,7 +14,7 @@ import SignUpDialog from "./user/SignUpDialog";
 import SignInDialog from "./user/SignInDialog";
 
 const pages = ["실종/보호동물", "Q&A"];
-const url = ["/petmily-frontEnd/api/animal/missing/list", "/petmily-frontEnd/api/board"];
+const url = ["/api/animal/missing/list", "/api/board"];
 const userDialogs = ["로그인", "회원가입"];
 const settings = ["마이페이지", "로그아웃"];
 
