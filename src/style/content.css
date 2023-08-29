@@ -84,19 +84,32 @@
     font-size: 15px;
 }
 
-.MuiInputBase-input {
-    height: 15px !important;
-    width: 300px !important;
+.dialog-content {
+    display: flex;
+    flex-flow: wrap;
+    align-items: center;
 }
 
-.modal-btns {
-    display: block;
-    width: 100%;
-    margin: 0 auto;
-    text-align: center;
+.dialog-content .MuiInputBase-formControl {
+    height: 50px;
 }
 
-.lgn-btn {
-    width: 100%; 
-    height: 45px;
+.dialog-content .MuiOutlinedInput-input {
+    margin: 10px
+}
+
+.MuiDialog-paper {
+    height: 270px;
+    max-width: 550px !important;
+    width: 500px;
+    background-color: #e5e5e5 !important;
+} 
+
+.MuiDialogActions-root {
+    height: 60px;
+}
+
+/** Q&A **/
+.board-table .MuiPaper-root {
+    height: calc(100vh - 157.6px);
 }

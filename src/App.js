@@ -3,13 +3,12 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  createBrowserRouter,
-  RouterProvider,
 } from "react-router-dom";
 import "./App.css";
 import "./style/content.css";
 import "./style/common.css";
 import "./style/board.css";
+import 'react-toastify/dist/ReactToastify.css';
 import Board from "./board/Board";
 import Topbar from "./topbar";
 import NotFound from "./notFound";
