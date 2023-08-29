@@ -20,6 +20,8 @@ import CreateIcon from "@mui/icons-material/Create";
 import PhotoIcon from "@mui/icons-material/Photo";
 import AddIcon from "@material-ui/icons/Add";
 
+import { ToastContainer, toast } from "react-toastify";
+
 // 아이콘
 const tableIcons = {
   Add: forwardRef((props, ref) => <icon1.AddBox {...props} ref={ref} />),
@@ -151,7 +153,7 @@ const Board = () => {
   }, [open]);
 
   return (
-    <div>
+    <div className="board-table">
       <mui.Stack
         className="stack"
         justifyContent="center"
@@ -181,19 +183,31 @@ const Board = () => {
           }}
         />
 
-        <mui.Button
-          variant="contained"
-          className="searchBtn"
+        <button
+          className="btn-blue btns"
           onClick={() => {
             if (search_keyword === "") {
-              alert("검색어를 입력해주세요.");
+              toast.warn("검색어를 입력해주세요");
               return false;
             }
             getList();
           }}
         >
           검색
-        </mui.Button>
+        </button>
+        {/* Same as */}
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
 
         {/* <mui.Button variant="outlined" className="resetBtn" onClick={reset}>
           초기화
@@ -276,10 +290,9 @@ const Board = () => {
           paginationType: "stepped",
           search: false,
           sorting: true,
-          maxBodyHeight: "400px"
+          maxBodyHeight: "calc(100vh - 275px)",
         }}
       />
-
       {/* 게시글 등록 모달창 */}
       {dialogName === "INSERT" && open && (
         <InsertDialog

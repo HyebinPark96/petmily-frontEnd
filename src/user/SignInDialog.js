@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import useStore from "../zustand/store";
 
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import { DialogActions } from "@mui/material";
 
 const SignInDialog = () => {
   let sessionStorage = window.sessionStorage;
@@ -23,10 +24,6 @@ const SignInDialog = () => {
   const closeDialog = useStore((state) => state.closeDialog);
 
   useEffect(() => {}, [userId]);
-
-  const StyledInput = {
-    borderRadius: "8px",
-  };
 
   const signIn = () => {
     if (userIdInput === "" || userPasswordInput === "") {
@@ -58,40 +55,39 @@ const SignInDialog = () => {
   };
 
   return (
-    <div>
-      <Dialog open={open} onClose={closeDialog} maxWidth="xs">
-        <DialogTitle>계정 로그인</DialogTitle>
+    <Dialog open={open} onClose={closeDialog} maxWidth="xs">
+      <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">계정 로그인</DialogTitle>
 
-        <DialogContent>
-          <TextField
-            placeholder="아이디를 입력해주세요."
-            type="id"
-            style={StyledInput}
-            value={userIdInput || ""}
-            onChange={(e) => {
-              setUserIdInput(e.target.value);
-            }}
-            fullWidth
-          />
-          <TextField
-            placeholder="비밀번호를 입력해주세요."
-            type="password"
-            style={StyledInput}
-            value={userPasswordInput || ""}
-            onChange={(e) => {
-              setUserPasswordInput(e.target.value);
-            }}
-            fullWidth
-          />
-        </DialogContent>
+      <DialogContent className="dialog-content .margin-top-10" dividers>
+        <TextField
+          placeholder="아이디를 입력해주세요."
+          type="id"
+          value={userIdInput || ""}
+          onChange={(e) => {
+            setUserIdInput(e.target.value);
+          }}
+          fullWidth
+        />
+        <TextField
+          placeholder="비밀번호를 입력해주세요."
+          type="password"
+          value={userPasswordInput || ""}
+          onChange={(e) => {
+            setUserPasswordInput(e.target.value);
+          }}
+          fullWidth
+        />
+      </DialogContent>
 
-        <div className="modal-btns">
-          <Button variant="contained" onClick={signIn} className="lgn-btn">
-            로그인
-          </Button>
-        </div>
-      </Dialog>
-    </div>
+      <DialogActions>
+        <button className="btn-gray btns" onClick={closeDialog}>
+          취소
+        </button>
+        <button onClick={signIn} className="btn-blue btns">
+          로그인
+        </button>
+      </DialogActions>
+    </Dialog>
   );
 };
 

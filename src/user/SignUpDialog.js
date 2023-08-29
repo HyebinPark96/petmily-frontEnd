@@ -98,14 +98,17 @@ const SignUpDialog = () => {
                     </Modal.Body>
         
                     <Modal.Footer>
-                        <Button className="cancleBtn" onClick={closeDialog}>
+                        <button className="btn-gray btns" onClick={closeDialog}>
                             취소
-                        </Button>
-                        <Button onClick={() => {
-                            insertUser();
-                        }}>
+                        </button>
+                        <button 
+                            onClick={() => {
+                                insertUser();
+                            }}
+                            className="btn-blue btns"
+                        >
                             등록
-                        </Button>
+                        </button>
                     </Modal.Footer>
                 </Modal>
             </div>

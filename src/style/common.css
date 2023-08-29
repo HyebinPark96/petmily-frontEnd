@@ -1,0 +1,32 @@
+.margin-10 {
+    margin: 10px;
+}
+
+.margin-top-10 {
+    margin-top: 10px;
+}
+
+.margin-bottom-10 {
+    margin-bottom: 10px;
+}
+
+.text-field {
+    border-radius: 10%;
+}
+
+.btns {
+    width: 70px;
+    height: 37px;
+    border-radius: 7px;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.btn-gray {
+    background-color: #adb5bd;
+}
+
+.btn-blue {
+    background-color: #219ebc;
+}
