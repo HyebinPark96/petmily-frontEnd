@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import DeleteDialog from './DeleteDialog';
+import DeleteDialog from './deleteDialog';
 
 const CheckPwdForDeleteDialog = ({no, setOpen}) => {
 

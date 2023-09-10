@@ -7,7 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
-import UpdateDialog from './UpdateDialog';
+import UpdateDialog from './updateDialog';
 
 const CheckPwdForUpdateDialog = ({no, setOpen}) => {
 
