@@ -7,10 +7,7 @@ exports.handler = async (event, context) => {
   try {
     const { keyword } = event.queryStringParameters;
     let response = await axios.get(
-        `https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?_type=json&pageNo=1&numOfRows=10&serviceKey=${process.env.REACT_APP_API_KEY}`,
-      {
-        headers: { Accept: "application/json", "Accept-Encoding": "identity" },
-      }
+        `https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?_type=json&pageNo=1&numOfRows=10&serviceKey=${process.env.REACT_APP_API_KEY}`
     );
 
     let imageURL = response.data.hits;
