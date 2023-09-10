@@ -24,19 +24,19 @@ const MissingAnimalPage = () => {
     // 추가 데이터를 로드하는 상태로 전환
     setFetching(true);
 
-    await axios.get('/api/animal/selectMissingAnimalList', {
-      params: {
-        pageNo: pageNo,
-        numOfRows: numOfRows,
-      }
-    })
-    .then((result) => {
-      setMissingAnimalList([ ...missingAnimalList, ...result.data ]);
-      setPageNo(pageNo + 1);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    // await axios.get('/api/animal/selectMissingAnimalList', {
+    //   params: {
+    //     pageNo: pageNo,
+    //     numOfRows: numOfRows,
+    //   }
+    // })
+    // .then((result) => {
+    //   setMissingAnimalList([ ...missingAnimalList, ...result.data ]);
+    //   setPageNo(pageNo + 1);
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    // });
 
     // 추가 데이터 로드 끝
     setFetching(false);
