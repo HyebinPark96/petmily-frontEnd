@@ -7,7 +7,7 @@ import {
 import "./App.css";
 import "./style/content.css";
 import "./style/common.css";
-import "./style/board.css";
+// import "./style/board.css";
 import 'react-toastify/dist/ReactToastify.css';
 import Board from "./board/board";
 import Topbar from "./topbar";
