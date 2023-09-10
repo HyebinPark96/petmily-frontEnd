@@ -2,10 +2,10 @@ import React, { useState, useEffect, forwardRef } from "react";
 import axios from "axios";
 import moment from "moment";
 
-import ReadDialog from "./component/dialog/ReadDialog";
-import CheckPwdForDeleteDialog from "./component/dialog/CheckPwdForDeleteDialog";
-import CheckPwdForUpdateDialog from "./component/dialog/CheckPwdForUpdateDialog";
-import InsertDialog from "./component/dialog/InsertDialog";
+import ReadDialog from "./component/dialog/readDialog";
+import CheckPwdForDeleteDialog from "./component/dialog/checkPwdForDeleteDialog";
+import CheckPwdForUpdateDialog from "./component/dialog/checkPwdForUpdateDialog";
+import InsertDialog from "./component/dialog/insertDialog";
 
 import { Form } from "react-bootstrap";
 

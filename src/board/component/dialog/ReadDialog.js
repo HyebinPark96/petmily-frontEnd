@@ -4,8 +4,8 @@ import moment from "moment";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Form } from "react-bootstrap";
-import CheckPwdForUpdateDialog from "./CheckPwdForUpdateDialog";
-import CheckPwdForDeleteDialog from "./CheckPwdForDeleteDialog";
+import CheckPwdForUpdateDialog from "./checkPwdForUpdateDialog";
+import CheckPwdForDeleteDialog from "./checkPwdForDeleteDialog";
 
 const ReadDialog = ({open, no, setOpen}) => {
 
