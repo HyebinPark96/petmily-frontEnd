@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/petmily-frontEnd/static/css/main.b7680e67.css",
-    "main.js": "/petmily-frontEnd/static/js/main.33acba0b.js",
+    "main.css": "/petmily-frontEnd/static/css/main.56c38b90.css",
+    "main.js": "/petmily-frontEnd/static/js/main.926566a5.js",
     "static/js/498.2fd3091a.chunk.js": "/petmily-frontEnd/static/js/498.2fd3091a.chunk.js",
     "static/js/703.e00bc6ce.chunk.js": "/petmily-frontEnd/static/js/703.e00bc6ce.chunk.js",
     "static/js/13.a0055615.chunk.js": "/petmily-frontEnd/static/js/13.a0055615.chunk.js",
@@ -13,18 +13,16 @@
     "static/media/logo1.png": "/petmily-frontEnd/static/media/logo1.6d973a70bce868dda955.png",
     "static/media/dog_cursorIn.png": "/petmily-frontEnd/static/media/dog_cursorIn.8413265dfbd0dce8e6bc.png",
     "static/media/cat_cursorOut.png": "/petmily-frontEnd/static/media/cat_cursorOut.8a1b0c056740f9c8b81c.png",
-    "static/media/logo3.png": "/petmily-frontEnd/static/media/logo3.260c96f9507aa9496406.png",
-    "static/media/logo2.png": "/petmily-frontEnd/static/media/logo2.2359f56edc88be82b112.png",
     "static/media/dog_cursorOut.png": "/petmily-frontEnd/static/media/dog_cursorOut.d7a4d346d0bcee8602fb.png",
     "index.html": "/petmily-frontEnd/index.html",
-    "main.b7680e67.css.map": "/petmily-frontEnd/static/css/main.b7680e67.css.map",
-    "main.33acba0b.js.map": "/petmily-frontEnd/static/js/main.33acba0b.js.map",
+    "main.56c38b90.css.map": "/petmily-frontEnd/static/css/main.56c38b90.css.map",
+    "main.926566a5.js.map": "/petmily-frontEnd/static/js/main.926566a5.js.map",
     "498.2fd3091a.chunk.js.map": "/petmily-frontEnd/static/js/498.2fd3091a.chunk.js.map",
     "703.e00bc6ce.chunk.js.map": "/petmily-frontEnd/static/js/703.e00bc6ce.chunk.js.map",
     "13.a0055615.chunk.js.map": "/petmily-frontEnd/static/js/13.a0055615.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b7680e67.css",
-    "static/js/main.33acba0b.js"
+    "static/css/main.56c38b90.css",
+    "static/js/main.926566a5.js"
   ]
 }
