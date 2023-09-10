@@ -24,13 +24,7 @@ const MissingAnimalPage = () => {
     // 추가 데이터를 로드하는 상태로 전환
     setFetching(true);
 
-    await axios.get(`http://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?_type=json&pageNo=10&numOfRows=10&serviceKey=${process.env.REACT_APP_API_KEY}`, 
-    {
-      params: {
-        pageNo: pageNo,
-        numOfRows: numOfRows,
-      }
-    })
+    await axios.get(`http://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?_type=json&pageNo=1&numOfRows=10&serviceKey=${process.env.REACT_APP_API_KEY}`)
     .then((result) => {
       setMissingAnimalList([ ...missingAnimalList, ...result.data ]);
       setPageNo(pageNo + 1);
