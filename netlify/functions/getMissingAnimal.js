@@ -10,7 +10,7 @@ exports.handler = async (event, context) => {
         `https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?_type=json&pageNo=1&numOfRows=10&serviceKey=${process.env.REACT_APP_API_KEY}`
     );
 
-    let item = result.data.response.body.itmes.item[0];
+    let item = result.data;
     return item;
 
   } catch (error) {
