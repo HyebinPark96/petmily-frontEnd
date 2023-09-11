@@ -5,17 +5,14 @@ const axios = require("axios");
 
 exports.handler = async (event, context) => {
   try {
-    const { keyword } = event.queryStringParameters;
-    let response = await axios.get(
+    // const { keyword } = event.queryStringParameters;
+    let result = await axios.get(
         `https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?_type=json&pageNo=1&numOfRows=10&serviceKey=${process.env.REACT_APP_API_KEY}`
     );
 
-    let imageURL = response.data.hits;
+    let item = result.data.response.body.itmes.item[0];
+    return item;
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ imageURL }),
-    };
   } catch (error) {
     return {
       statusCode: 500,
