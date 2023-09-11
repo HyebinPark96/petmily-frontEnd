@@ -1,50 +1,53 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
-import useStore from '../../zustand/store';
-import MissingAnimalDetailDialog from './missingAnimalDetailDialog';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { Button, CardActionArea, CardActions } from "@mui/material";
+import useStore from "../../zustand/store";
+import MissingAnimalDetailDialog from "./missingAnimalDetailDialog";
 
 const MissingAnimalPage = () => {
-
-  const [missingAnimalList, setMissingAnimalList] = useState([]); 
+  const [missingAnimalList, setMissingAnimalList] = useState([]);
   const [pageNo, setPageNo] = useState(1);
-  const [numOfRows, setNumOfRows] = useState(12);
   const [fetching, setFetching] = useState(false); // 추가 데이터를 로드하는지 아닌지를 담기위한 state
 
   // 상태를 꺼낸다.
-  const open = useStore(state => state.open);
-  const dialogName = useStore(state => state.dialogName);
+  const open = useStore((state) => state.open);
+  const dialogName = useStore((state) => state.dialogName);
 
-  const getMissingAnimalList = async() => {
-
+  const getMissingAnimalList = async () => {
     // 추가 데이터를 로드하는 상태로 전환
     setFetching(true);
 
-    await axios.get(`/.netlify/functions/getMissingAnimal`)
-    .then((result) => {
-      setMissingAnimalList([ ...missingAnimalList, ...result.data ]);
-      setPageNo(pageNo + 1);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    await axios
+      .post(`/.netlify/functions/getMissingAnimal`, {
+        pageNo
+      })
+      .then((result) => {
+        setMissingAnimalList([
+          ...missingAnimalList,
+          ...result.data.response.body.items.item,
+        ]);
+        setPageNo(pageNo + 1);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     // 추가 데이터 로드 끝
     setFetching(false);
-  }
+  };
 
   // 스크롤 이벤트 핸들러
   const handleScroll = () => {
     // 페이지 총 높이
     const scrollHeight = document.documentElement.scrollHeight;
-    
+
     // 이미 스크롤되어 보이지 않는 구간 높이
     const scrollTop = document.documentElement.scrollTop;
-    
+
     // 현재 사용자에게 보여지는 페이지 높이
     const clientHeight = document.documentElement.clientHeight;
 
@@ -58,7 +61,7 @@ const MissingAnimalPage = () => {
     // 스크롤 이벤트 등록
     window.addEventListener("scroll", handleScroll);
 
-    // unmount 시 스크롤 이벤트 해제 
+    // unmount 시 스크롤 이벤트 해제
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -66,9 +69,11 @@ const MissingAnimalPage = () => {
 
   useEffect(() => {
     getMissingAnimalList();
-  }, [])
+  }, []);
 
-  const openMissingAnimalDetailDialog = useStore(state => state.openMissingAnimalDetailDialog);
+  const openMissingAnimalDetailDialog = useStore(
+    (state) => state.openMissingAnimalDetailDialog
+  );
 
   const handleModalOpen = (dialogName, missingAnimalDetail) => {
     openMissingAnimalDetailDialog(dialogName, missingAnimalDetail);
@@ -77,8 +82,14 @@ const MissingAnimalPage = () => {
   return (
     <>
       <div className="cards-container">
-        {missingAnimalList.map((missingAnimal) => ( 
-          <Card key={missingAnimal.desertionNo} className="card" onClick={() => handleModalOpen('missingAnimalDetailDialog', missingAnimal)}>
+        {missingAnimalList.map((missingAnimal, index) => (
+          <Card
+            key={index}
+            className="card"
+            onClick={() =>
+              handleModalOpen("missingAnimalDetailDialog", missingAnimal)
+            }
+          >
             <CardActionArea className="card-action-area">
               <div className="card-media-container">
                 <CardMedia
@@ -90,12 +101,21 @@ const MissingAnimalPage = () => {
               </div>
               <CardContent className="card-content">
                 <Typography gutterBottom variant="h5" component="div">
-                  {missingAnimal?.kindCd} 
+                  {missingAnimal?.kindCd}
                 </Typography>
-                <Typography className="notice-date" variant="div" component="div">
-                  📢 공고기간: {missingAnimal?.noticeSdt} ~ {missingAnimal?.noticeEdt}
+                <Typography
+                  className="notice-date"
+                  variant="div"
+                  component="div"
+                >
+                  📢 공고기간: {missingAnimal?.noticeSdt} ~{" "}
+                  {missingAnimal?.noticeEdt}
                 </Typography>
-                <Typography className="happen-place" variant="div" component="div" /* variant="body2" color="text.secondary" */>
+                <Typography
+                  className="happen-place"
+                  variant="div"
+                  component="div" /* variant="body2" color="text.secondary" */
+                >
                   💡 발견장소: {missingAnimal?.happenPlace}
                 </Typography>
               </CardContent>
@@ -104,13 +124,11 @@ const MissingAnimalPage = () => {
         ))}
       </div>
 
-      {
-        (dialogName === 'missingAnimalDetailDialog' && open)
-        &&
+      {dialogName === "missingAnimalDetailDialog" && open && (
         <MissingAnimalDetailDialog />
-      }
+      )}
     </>
-  )
-}
+  );
+};
 
-export default MissingAnimalPage
+export default MissingAnimalPage;

@@ -1,27 +1,20 @@
-//netlify/functions/getPhotos.js
+//netlify/functions/getMissingAnimal.js
 require("dotenv").config();
 
 const axios = require("axios");
 
-exports.handler = async (event, context) => {
+exports.handler = async (event) => {
   try {
-    // const { keyword } = event.queryStringParameters;
+    const payload = JSON.parse(event.body)
+    const { pageNo } = payload
     let response = await axios.get(
-      `https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?_type=json&pageNo=1&numOfRows=10&serviceKey=${process.env.REACT_APP_API_KEY}`,
-      {
-        params: {
-          serviceKey: process.env.REACT_APP_API_KEY,
-          numOfRows: 1,
-          pageNo: 10,
-        },
-      }
+      `https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?_type=json&pageNo=${pageNo}&numOfRows=10&serviceKey=${process.env.REACT_APP_API_KEY}`
     );
 
     return {
       statusCode: 200,
       body: JSON.stringify(response.data),
     };
-
   } catch (error) {
     return {
       statusCode: 500,

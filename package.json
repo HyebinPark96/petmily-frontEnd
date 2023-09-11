@@ -40,7 +40,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev:netlify": "netlify dev"
   },
   "eslintConfig": {
     "extends": [
@@ -61,6 +62,7 @@
     ]
   },
   "devDependencies": {
+    "netlify-cli": "^16.3.1",
     "tailwindcss": "^3.3.2"
   }
 }
