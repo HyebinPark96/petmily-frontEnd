@@ -82,7 +82,8 @@ const MissingAnimalPage = () => {
 
   return (
     <>
-      <div className="cards-container">
+      <div className="cards-container" style={{ position: 'relative' }}>
+      { fetching === true && <CircularProgress style={{ position: 'absolute', bottom: `10px`, left: '50%' }}  /> }
         {missingAnimalList.map((missingAnimal, index) => (
           <Card
             key={index}
@@ -124,8 +125,6 @@ const MissingAnimalPage = () => {
           </Card>
         ))}
       </div>
-
-      {fetching === true && <CircularProgress />}
 
       {dialogName === "missingAnimalDetailDialog" && open && (
         <MissingAnimalDetailDialog />
