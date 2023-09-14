@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 import useStore from "../../zustand/store";
 import MissingAnimalDetailDialog from "./missingAnimalDetailDialog";
+import CircularProgress from "@mui/joy/CircularProgress";
 
 const MissingAnimalPage = () => {
   const [missingAnimalList, setMissingAnimalList] = useState([]);
@@ -23,7 +24,7 @@ const MissingAnimalPage = () => {
 
     await axios
       .post(`/.netlify/functions/getMissingAnimal`, {
-        pageNo
+        pageNo,
       })
       .then((result) => {
         setMissingAnimalList([
@@ -123,6 +124,8 @@ const MissingAnimalPage = () => {
           </Card>
         ))}
       </div>
+
+      {fetching === true && <CircularProgress />}
 
       {dialogName === "missingAnimalDetailDialog" && open && (
         <MissingAnimalDetailDialog />

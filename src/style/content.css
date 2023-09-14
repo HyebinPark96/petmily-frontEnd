@@ -113,3 +113,8 @@
 .board-table .MuiPaper-root {
     height: calc(100vh - 157.6px);
 }
+
+/** 실종/보호동물 상세정보 다이얼로그 **/
+.missingAnimalDetailDialog {
+    height: 400px !important;
+}
