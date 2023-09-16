@@ -99,10 +99,9 @@
 }
 
 .MuiDialog-paper {
-    height: 270px;
-    max-width: 550px !important;
-    width: 500px;
-    background-color: #e5e5e5 !important;
+    /* height: 270px; */
+    /* max-width: 550px !important; */
+    /* background-color: #e5e5e5 !important; */
 } 
 
 .MuiDialogActions-root {

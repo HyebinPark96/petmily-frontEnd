@@ -8,6 +8,8 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import useStore from "../../zustand/store";
+import DialogActions from "@mui/material/DialogActions";
+import TextField from "@mui/material/TextField";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -66,7 +68,8 @@ const MissingAnimalDetailDialog = () => {
         "& .MuiDialog-container": {
           "& .MuiPaper-root": {
             height: "100%",
-            maxHeight: "500px",
+            maxHeight: "550px",
+            width: "1000px",
           },
         },
       }}
@@ -74,31 +77,134 @@ const MissingAnimalDetailDialog = () => {
       <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
         실종/보호동물 상세정보
       </BootstrapDialogTitle>
+
       <DialogContent dividers style={{ height: "500px" }}>
-
         <Typography gutterBottom>
-          <span>접수일: {missingAnimalDetail.happenDt} </span>
-          <span>발견장소: {missingAnimalDetail.happenPlace} </span>
-          <span>품종: {missingAnimalDetail.kindCd} </span>
-          <span>색상: {missingAnimalDetail.colorCd} </span>
-          {/* 나이: {missingAnimalDetail.age} <br />
-          체중: {missingAnimalDetail.weight} <br />
-          성별: {missingAnimalDetail.sexCd} <br />
-          중성화여부: {missingAnimalDetail.neuterYn} <br />
-          특징: {missingAnimalDetail.specialMark} <br /> */}
+          <div className="flex">
+            <div className="text-field margin-bottom-10">
+              <p className="text">접수일 </p>
+              <input
+                type="text"
+                value={missingAnimalDetail.happenDt}
+                className="input-read disabled"
+                disabled
+              />
+            </div>
+            <div className="text-field margin-bottom-10">
+              <p className="text">발견장소 </p>
+              <input
+                type="text"
+                value={missingAnimalDetail.happenPlace}
+                className="input-read disabled"
+                disabled
+              />
+            </div>
+          </div>
+          <div className="flex">
+            <div className="text-field margin-bottom-10">
+              <p className="text">품종 </p>
+              <input
+                type="text"
+                value={missingAnimalDetail.kindCd}
+                className="input-read disabled"
+                disabled
+              />
+            </div>
+            <div className="text-field margin-bottom-10">
+              <p className="text">색상 </p>
+              <input
+                type="text"
+                value={missingAnimalDetail.colorCd}
+                className="input-read disabled"
+                disabled
+              />
+            </div>
+          </div>
+          <div className="flex">
+            <div className="text-field margin-bottom-10">
+              <p className="text">나이 </p>
+              <input
+                type="text"
+                value={missingAnimalDetail.age}
+                className="input-read disabled"
+                disabled
+              />
+            </div>
+            <div className="text-field margin-bottom-10">
+              <p className="text">체중 </p>
+              <input
+                type="text"
+                value={missingAnimalDetail.weight}
+                className="input-read disabled"
+                disabled
+              />
+            </div>
+          </div>
+          <div className="flex">
+            <div className="text-field margin-bottom-10">
+              <p className="text">성별 </p>
+              <input
+                type="text"
+                value={missingAnimalDetail.sexCd}
+                className="input-read disabled"
+                disabled
+              />
+            </div>
+            <div className="text-field margin-bottom-10">
+              <p className="text">중성화여부 </p>
+              <input
+                type="text"
+                value={missingAnimalDetail.neuterYn}
+                className="input-read disabled"
+                disabled
+              />
+            </div>
+          </div>
+          <div className="flex">
+            <div className="text-field margin-bottom-10">
+              <p className="text">보호소이름 </p>
+              <input
+                type="text"
+                value={missingAnimalDetail.careNm}
+                className="input-read disabled"
+                disabled
+              />
+            </div>
+            <div className="text-field margin-bottom-10">
+              <p className="text">보호상태 </p>
+              <input
+                type="text"
+                value={missingAnimalDetail.processState}
+                className="input-read disabled"
+                disabled
+              />
+            </div>
+          </div>
+          <div className="flex">
+            <div className="text-field margin-bottom-10">
+              <p className="text">특징 </p>
+              <textarea 
+                value={missingAnimalDetail.specialMark}
+                className="input-read textarea disabled"
+                cols="40" 
+                rows="5"
+                disabled
+              />
+            </div>
+          </div>
         </Typography>
-
-        {/* <Typography gutterBottom>
-            보호소이름: {missingAnimalDetail.careNm}
-            보호상태: {missingAnimalDetail.processState}
-          </Typography> */}
       </DialogContent>
 
-      {/* <DialogActions>
-          <Button autoFocus onClick={handleClose}>
-            Save changes
-          </Button>
-        </DialogActions> */}
+      <DialogActions>
+        <button
+          type="button"
+          className="btns btn-gray"
+          autoFocus
+          onClick={handleClose}
+        >
+          닫기
+        </button>
+      </DialogActions>
     </Dialog>
   );
 };
