@@ -91,3 +91,13 @@
 .disabled {
     background-color: #ffffff;
 }
+
+.textField-410 {
+    width: 410px
+}
+
+.grid-textField-btn {
+    display: flex; 
+    align-items: center; 
+    gap: 10px;
+}

@@ -111,3 +111,9 @@
 .missingAnimalDetailDialog {
     height: 400px !important;
 }
+
+.grid {
+    display: flex; 
+    align-items: center; 
+    gap: 10px;
+}
