@@ -14,6 +14,8 @@ const MissingAnimalPage = () => {
   const [pageNo, setPageNo] = useState(1);
   const [fetching, setFetching] = useState(false); // 추가 데이터를 로드하는지 아닌지를 담기위한 state
 
+  const [height, setHeight] = useState(0);
+
   // 상태를 꺼낸다.
   const open = useStore((state) => state.open);
   const dialogName = useStore((state) => state.dialogName);
@@ -32,6 +34,7 @@ const MissingAnimalPage = () => {
           ...result.data.response.body.items.item,
         ]);
         setPageNo(pageNo + 1);
+        setHeight(document.documentElement.scrollHeight);
       })
       .catch((err) => {
         console.log(err);
@@ -40,6 +43,10 @@ const MissingAnimalPage = () => {
     // 추가 데이터 로드 끝
     setFetching(false);
   };
+
+  useEffect(() => {
+    console.log(height);
+  }, [height]);
 
   // 스크롤 이벤트 핸들러
   const handleScroll = () => {
@@ -82,8 +89,18 @@ const MissingAnimalPage = () => {
 
   return (
     <>
-      <div className="cards-container" style={{ position: 'relative' }}>
-      { fetching === true && <CircularProgress style={{ position: 'absolute', bottom: `10px`, left: '50%' }}  /> }
+      <div className="cards-container" style={{ height: height }}>
+        {fetching === true && (
+          <CircularProgress
+            style={{
+              position: "absolute",
+              bottom: `10px`,
+              left: "50%",
+              top: "50%",
+              transform: "translate(-50%, -50%);",
+            }}
+          />
+        )}
         {missingAnimalList.map((missingAnimal, index) => (
           <Card
             key={index}

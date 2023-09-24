@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import { Box } from "@mui/material";
 import { SectionsContainer, Section } from "react-fullpage";
 import axios from "axios";
@@ -22,7 +22,7 @@ const Main = () => {
   const [abandonmentAnimalCnt, setAbandonmentAnimalCnt] = useState(0); // 오늘 보호된(유기된) 동물 수
   // const [protectionEndAnimalCnt, setProtectionEndAnimalCnt] = useState(0); // 오늘 보호종료되는 동물 수
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // 추가 데이터를 로드하는 상태로 전환
     setFetching(true);
 
@@ -32,31 +32,45 @@ const Main = () => {
       })
       .then((result) => {
         setAbandonmentAnimalCnt(result.data);
+        // 추가 데이터 로드 끝
+        setFetching(false);
       })
       .catch((err) => {
         console.log(err);
       });
-
-    // 추가 데이터 로드 끝
-    setFetching(false);
   }, []);
 
   return (
     <SectionsContainer {...options}>
       {/* 섹션1 */}
       <Section>
+        {/* {fetching === true && (
+        <CircularProgress style={{ position: "absolute", left: '50%', top: '50%' }} />
+      )} */}
+
         <Box
           sx={{
             bgcolor: "#ffffff",
             height: "100%",
             display: "flex",
           }}
-          className="inner items-center justify-center text-5xl"
+          className="items-center justify-center text-5xl"
+          style={{ position: "relative" }}
         >
-          <div className="grid gap-x-8 text-center lg:grid-cols-3">
-            {fetching === true && <CircularProgress />}
+          {fetching === true && (
+            <CircularProgress
+              style={{
+                position: "absolute",
+                left: "49%",
+                top: "49%",
+                transform: "translate(-50%, -50%);",
+              }}
+            />
+          )}
 
-            {/* {stats.map((stat) => (
+          {fetching === false && (
+            <div className="gap-x-8 text-center">
+              {/* {stats.map((stat) => (
               <div key={stat.id} className="flex flex-col">
                 <dt className="text-base leading-7 text-gray-600 w-52">
                   {stat.name}
@@ -67,16 +81,12 @@ const Main = () => {
               </div>
             ))} */}
 
-            <div className="flex flex-col">
-              <dt className="text-base leading-7 text-gray-600 w-52">
-                오늘 접수된 동물
-              </dt>
-              <dd className="order-first sm:text-5xl">
-                {abandonmentAnimalCnt}
-              </dd>
+              <div className="flex flex-col">
+                <dt className="text-base text-gray-600 ">오늘 접수된 동물</dt>
+                <dd>{abandonmentAnimalCnt}</dd>
+              </div>
             </div>
-
-          </div>
+          )}
         </Box>
       </Section>
 
