@@ -22,7 +22,7 @@
     width: 70px;
     height: 37px;
     border-radius: 7px;
-    color: white;
+    color: #ffffff;
     font-size: 14px;
     font-weight: bold;
 }
@@ -89,5 +89,5 @@
 }
 
 .disabled {
-    background-color: white;
+    background-color: #ffffff;
 }

@@ -1,18 +1,11 @@
 import React, { useEffect } from "react";
-
 import * as mui from "@mui/material";
 import logo1 from "./style/image/logo/logo1.png";
-
 import { Link } from "react-router-dom";
-
 import useStore from "./zustand/store";
-// import SignUpDialog from "./user/signUpDialog";
-// import SignInDialog from "./user/signInDialog";
-
 const categoryPages = ["실종/보호동물", "Q&A"];
 const userPages = ["로그인", "회원가입"];
 const settingsPages = ["마이페이지", "로그아웃"];
-
 const categoryUrl = ["/api/animal/missing/list", "/api/board"];
 const userUrl = ["/api/user/signIn", "/api/user/signUp"];
 const settingsUrl = ["/api/user/myPage", "/api/user/signOut"];

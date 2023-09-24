@@ -4,7 +4,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Button, CardActionArea, CardActions } from "@mui/material";
+import { CardActionArea } from "@mui/material";
 import useStore from "../../zustand/store";
 import MissingAnimalDetailDialog from "./missingAnimalDetailDialog";
 import CircularProgress from "@mui/joy/CircularProgress";
@@ -23,7 +23,7 @@ const MissingAnimalPage = () => {
     setFetching(true);
 
     await axios
-      .post(`/.netlify/functions/getMissingAnimal`, {
+      .post(`/.netlify/functions/getMissingAnimalList`, {
         pageNo,
       })
       .then((result) => {

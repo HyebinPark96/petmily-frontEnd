@@ -98,12 +98,6 @@
     margin: 10px
 }
 
-.MuiDialog-paper {
-    /* height: 270px; */
-    /* max-width: 550px !important; */
-    /* background-color: #e5e5e5 !important; */
-} 
-
 .MuiDialogActions-root {
     height: 60px;
 }
