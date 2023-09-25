@@ -89,18 +89,7 @@ const MissingAnimalPage = () => {
 
   return (
     <>
-      <div className="cards-container" style={{ height: height }}>
-        {fetching === true && (
-          <CircularProgress
-            style={{
-              position: "absolute",
-              bottom: `10px`,
-              left: "50%",
-              top: "50%",
-              transform: "translate(-50%, -50%);",
-            }}
-          />
-        )}
+      <div className="cards-container">
         {missingAnimalList.map((missingAnimal, index) => (
           <Card
             key={index}
@@ -133,7 +122,7 @@ const MissingAnimalPage = () => {
                 <Typography
                   className="happen-place"
                   variant="div"
-                  component="div" /* variant="body2" color="text.secondary" */
+                  component="div"
                 >
                   💡 발견장소: {missingAnimal?.happenPlace}
                 </Typography>
@@ -141,6 +130,17 @@ const MissingAnimalPage = () => {
             </CardActionArea>
           </Card>
         ))}
+        {fetching === true && (
+          <CircularProgress
+            style={{
+              position: "fixed",
+              bottom: "10px",
+              left: "50%",
+              top: "50%",
+              transform: "translate(-50%, -50%);",
+            }}
+          />
+        )}
       </div>
 
       {dialogName === "missingAnimalDetailDialog" && open && (
