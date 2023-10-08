@@ -4,6 +4,8 @@ import { SectionsContainer, Section } from "react-fullpage";
 import axios from "axios";
 import CircularProgress from "@mui/joy/CircularProgress";
 import moment from "moment";
+import adoptCat from './style/image/main/adopt-cat.jpg'
+import adoptDog from './style/image/main/adopt-dog.jpg'
 
 let options = {
   anchors: ["sectionOne", "sectionTwo"],
@@ -92,7 +94,9 @@ const Main = () => {
 
       {/* 섹션2 */}
       <Section>
-        <div style={{ backgroundColor: "#ffffff" }}>ddd</div>
+        <div style={{ backgroundColor: "#ffffff" }}>
+          <img src={adoptCat} style={{ width: "1920px", height: "923px" }} />
+        </div>
       </Section>
     </SectionsContainer>
   );

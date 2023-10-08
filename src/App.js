@@ -14,6 +14,7 @@ import Main from "./main";
 import MissingAnimalPage from "./animal/missing/missingAnimalPage";
 import SignUpPage from "./user/signUpPage";
 import SignInPage from './user/signInPage';
+// import Board from "./board/board";
 
 function App() {
     return (
@@ -27,6 +28,7 @@ function App() {
           ></Route>
           <Route path="/api/user/signUp" element={<SignUpPage />}></Route>
           <Route path="/api/user/signIn" element={<SignInPage />}></Route>
+          {/* <Route path="/api/board" element={<Board />}></Route> */}
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </BrowserRouter>

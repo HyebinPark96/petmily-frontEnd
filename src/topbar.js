@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const Topbar = () => {
   
-  const categoryPages = ["실종/보호동물", "Q&A"];
+  const categoryPages = ["실종/보호동물", /* "Q&A" */];
   const userPages = ["로그인", "회원가입"];
   const settingsPages = ["마이페이지", "로그아웃"];
   const categoryUrl = ["/api/animal/missing/list", "/api/board"];

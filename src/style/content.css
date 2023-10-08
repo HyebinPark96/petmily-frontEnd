@@ -104,7 +104,7 @@
 
 /** Q&A **/
 .board-table .MuiPaper-root {
-    height: calc(100vh - 157.6px);
+    height: 100%
 }
 
 /** 실종/보호동물 상세정보 다이얼로그 **/
@@ -116,4 +116,14 @@
     display: flex; 
     align-items: center; 
     gap: 10px;
+}
+
+.search_category {
+    display:inline-block !important; 
+    width: 100px !important;
+}
+  
+.search_keyword {
+    display:inline-block !important; 
+    width: 500px !important;
 }
