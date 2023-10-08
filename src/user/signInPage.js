@@ -15,6 +15,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import * as router from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -25,9 +26,9 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        PETMILY
-      </Link>{" "}
+      <Link variant="body2">
+        <router.Link to={"/"}>PETMILY</router.Link>{" "}
+      </Link>
       {new Date().getFullYear()}
       {"."}
     </Typography>
@@ -35,10 +36,12 @@ function Copyright(props) {
 }
 
 const SignInPage = () => {
+  const movePage = useNavigate();
+
   let sessionStorage = window.sessionStorage;
 
   const [userIdInput, setUserIdInput] = useState("");
-  const [userPasswordInput, setUserPasswordInput] = useState("");
+  const [passwordInput, setPasswordInput] = useState("");
 
   // 상태를 꺼낸다.
   const userId = useStore((state) => state.userId);
@@ -49,7 +52,7 @@ const SignInPage = () => {
   useEffect(() => {}, [userId]);
 
   const signIn = () => {
-    if (userIdInput === "" || userPasswordInput === "") {
+    if (userIdInput === "" || passwordInput === "") {
       alert("공백을 제외하고 입력해주세요.");
       return false;
     }
@@ -57,16 +60,16 @@ const SignInPage = () => {
     axios
       .post("/user/signIn", {
         userId: userIdInput,
-        userPassword: userPasswordInput,
+        password: passwordInput,
       })
       .then((response) => {
         if (response.data) {
           updateUserId(userIdInput);
 
           sessionStorage.setItem("userId", userIdInput);
-          sessionStorage.setItem("userPassword", userPasswordInput);
+          sessionStorage.setItem("password", passwordInput);
 
-          alert("로그인 되었습니다.");
+          movePage("/");
         } else {
           alert("아이디 또는 비밀번호가 잘못되었습니다.");
         }
@@ -77,15 +80,6 @@ const SignInPage = () => {
   };
 
   const defaultTheme = createTheme();
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -105,12 +99,7 @@ const SignInPage = () => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
+          <Box sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -133,9 +122,9 @@ const SignInPage = () => {
               label="Password"
               type="password"
               id="password"
-              value={userPasswordInput || ""}
+              value={passwordInput || ""}
               onChange={(e) => {
-                setUserPasswordInput(e.target.value);
+                setPasswordInput(e.target.value);
               }}
               autoComplete="current-password"
             />

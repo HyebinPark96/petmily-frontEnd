@@ -19,76 +19,17 @@ import * as router from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-// import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
-// import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
-// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-// import moment from "moment";
-// import dayjs from "dayjs";
 
-const SignUpPage = () => {
+const MyPage = () => {
   const defaultTheme = createTheme();
-  
+
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState(0);
 
-  const [isCheck, setCheck] = useState(false);
-
   const movePage = useNavigate();
-
-  // 회원가입
-  const signUp = () => {
-    if(isDuplicate === true) {
-      toast.warn("아이디 중복체크를 해주세요.")
-    } else {
-      axios
-      .post("/user/signUp", {
-        userId: userId,
-        password: password,
-        name: name,
-        email: email,
-        gender: gender,
-      })
-      .then((response) => {
-        if (response.data === true) {
-          alert("회원가입이 완료되었습니다.");
-          movePage('/');
-        } else {
-          toast.warn("회원가입에 실패하였습니다.");
-        }
-      })
-      .catch((error) => {
-        console.log("failed", error);
-      });
-    }
-  };
-
-  const [isDuplicate, setDuplicate] = useState(false);
-
-  const checkUserId = () => {
-    axios
-      .post("/user/checkUserId", {
-        userId: userId,
-      })
-      .then((result) => {
-        if (result.data === true) {
-          toast.warn("중복된 아이디가 존재합니다.");
-          setDuplicate(result.data);
-        } else if (result.data === false) {
-          toast.info("사용 가능한 아이디입니다.");
-          setDuplicate(result.data);
-        } else {
-          toast.info("오류가 발생했습니다.");
-        }
-
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -140,15 +81,6 @@ const SignUpPage = () => {
                   onChange={(e) => setUserId(e.target.value)}
                   autoFocus
                 />
-                <Button
-                  type="button"
-                  variant="contained"
-                  className="btn-blue"
-                  style={{ minWidth: "90px" }}
-                  onClick={checkUserId}
-                >
-                  중복확인
-                </Button>
               </Grid>
               <Grid item className="textField-410">
                 <TextField
@@ -187,17 +119,6 @@ const SignUpPage = () => {
                   autoComplete="email"
                 />
               </Grid>
-              {/* <Grid>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DemoContainer components={["DateCalendar", "DateCalendar"]}>
-                    <DemoItem label="Uncontrolled calendar">
-                      <DateCalendar
-                        defaultValue={dayjs('2022-04-17')}
-                      />
-                    </DemoItem>
-                  </DemoContainer>
-                </LocalizationProvider>
-              </Grid> */}
               <Grid item className="textField-410">
                 <Stack direction="row" spacing={2}>
                   <Button
@@ -216,19 +137,6 @@ const SignUpPage = () => {
                   </Button>
                 </Stack>
               </Grid>
-              <Grid item>
-                <FormControlLabel
-                  control={
-                    <Checkbox  
-                      color="primary"
-                      onChange={(e) => {
-                        setCheck(e.target.checked)
-                      }} 
-                    />
-                  }
-                  label="공지사항 및 스크랩한 공고의 추가사항 등의 내용이 이메일 또는 문자로 전송될 수 있습니다. 동의하시겠습니까?"
-                />
-              </Grid>
             </Grid>
             <Button
               type="button"
@@ -236,20 +144,11 @@ const SignUpPage = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
               className="btn-blue"
-              onClick={signUp}
-              disabled={isCheck === false ? true : false}
+            //   onClick={signUp}
+            //   disabled={isCheck === false ? true : false}
             >
-              회원가입
+              수정
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link variant="body2">
-                  <router.Link to="/api/user/signIn">
-                    이미 계정이 있으신가요?
-                  </router.Link>
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
       </Container>
@@ -257,4 +156,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default MyPage;
