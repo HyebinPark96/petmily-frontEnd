@@ -53,7 +53,7 @@ const Main = () => {
         <Box
           sx={{
             bgcolor: "#ffffff",
-            height: "100%",
+            height: "calc(100vh - 100px)",
             display: "flex",
           }}
           className="items-center justify-center text-5xl"
@@ -95,7 +95,7 @@ const Main = () => {
       {/* 섹션2 */}
       <Section>
         <div style={{ backgroundColor: "#ffffff" }}>
-          <img src={adoptCat} style={{ width: "1920px", height: "923px" }} />
+          <img src={adoptCat} style={{ width: "100%", height: "100vh"}} />
         </div>
       </Section>
     </SectionsContainer>
