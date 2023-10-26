@@ -6,9 +6,7 @@
 ## 🔨 개발환경
 * Java Version 8, Gradle / Spring Boot Version 2.6.7 / React Version 17.0.2
 * 사용 라이브러리
-  <!-- * 테이블 : `material-table 1.69.3`
-  * 차트 : `amchart4 4.10.22`  
-  * 탭 : `material-ui/core 4.12.3` -->
+  * 상태관리 : `zustand 4.3.8` 
   * 컴포넌트 : `@material-ui/core 4.12.3`
   * 스피너 : `@mui/joy 5.0.0-beta.6`
   * 라우터 : `react-router-dom 6.4.2`
