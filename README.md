@@ -6,7 +6,6 @@
 ## 🔨 개발환경
 * Java Version 8, Gradle / Spring Boot Version 2.6.7 / React Version 17.0.2
 * 사용 라이브러리
-  * 상태관리 : `zustand 4.3.8` 
   * 컴포넌트 : `@material-ui/core 4.12.3`
   * 스피너 : `@mui/joy 5.0.0-beta.6`
   * 라우터 : `react-router-dom 6.4.2`
